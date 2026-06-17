@@ -3,86 +3,128 @@
     --colorDos: #FFAE00;
     --colorTres: #FFFFFF;
     --colorCinco: #000000;
-  }
-  
-  /* Header */
-  .header {
+}
+
+/* Header */
+.header {
     background-color: var(--colorUno);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px;
-  }
-  
-  /* Contenedor derecho */
-  .header__right {
+}
+
+/* Contenedor derecho */
+.header__right {
     display: flex;
     align-items: center;
     gap: 25px;
-  }
-  
-  /* Logo */
-  .logo {
+}
+
+/* Logo */
+.logo {
     display: flex;
     align-items: center;
     gap: 15px;
-  }
-  
-  .logo img {
+}
+
+.logo img {
     width: 60px;
     height: 60px;
-  }
-  
-  .logo h1 {
+}
+
+.logo h1 {
     color: white;
     margin: 0;
     font-size: 2.5rem;
     text-transform: none;
-  }
-  
-  .logo span {
-    color: orange;
-  }
-  
-  /* Navegación */
-  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+/* ===== ESTILOS PARA TEXTROLL ===== */
+.text-roll-container {
+    display: inline-block;
+    position: relative;
+    overflow: hidden; /* 👈 Esto oculta el texto duplicado */
+    line-height: 1.2;
+}
+
+.text-roll-top {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.text-roll-bottom {
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+    inset: 0;
+}
+
+.text-roll-letter {
+    display: inline-block;
+    white-space: pre;
+}
+
+.text-roll-logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    display: inline-block;
+}
+
+.text-roll-ec-wrapper {
+    display: inline-block;
+}
+
+.text-roll-ec {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FFAE00;
+    display: inline-block;
+}
+
+/* ===== NAVEGACIÓN SIN ANIMACIÓN ===== */
+.nav {
     display: flex;
     gap: 25px;
     margin-left: auto;
     margin-right: 30px;
-  }
-  
-  .nav a {
+}
+
+.nav a {
     color: var(--colorTres);
     text-decoration: none;
     font-size: 1rem;
-  }
-  
-  .nav a.activo {
+}
+
+.nav a.activo {
     color: var(--colorDos);
     font-weight: bold;
-  }
-  
-  .nav a:hover {
+}
+
+.nav a:hover {
     opacity: 0.8;
-  }
-  
-  /* Buscador */
-  .search {
+}
+
+/* Buscador */
+.search {
     display: flex;
     align-items: center;
     gap: 10px;
     background-color: white;
     padding: 5px 12px;
     border-radius: 20px;
-  }
-  
-  .search svg {
+}
+
+.search svg {
     color: var(--colorUno);
     font-size: 20px;
-  }
-  
-  .search input {
+}
+
+.search input {
     width: 170px;
     height: 30px;
     background: transparent;
@@ -90,111 +132,121 @@
     padding: 0;
     color: var(--colorCinco);
     outline: none;
-  }
-  
-  .search input::placeholder {
+}
+
+.search input::placeholder {
     color: #999;
-  }
-  
-  /* Cuenta */
-  .account {
+}
+
+/* Cuenta */
+.account {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  
-  .account svg {
+}
+
+.account svg {
     color: white;
     font-size: 28px;
-  }
-  
-  .account a {
+}
+
+.account a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-  }
-  
-  /* ========================= */
-  /* MOBILE */
-  /* ========================= */
-  @media (max-width: 767px) {
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 767px) {
     .header {
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      padding: 15px;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
     }
-  
+
     .header__right {
-      flex-direction: column;
-      width: 100%;
-      gap: 15px;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
     }
-  
+
     .logo {
-      justify-content: center;
+        justify-content: center;
     }
-  
+
     .logo h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
-  
+
+    .text-roll-logo,
+    .text-roll-ec {
+        font-size: 2rem;
+    }
+
     .nav {
-      margin: 0;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
+        margin: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
     }
-  
+
     .nav a {
-      font-size: 0.95rem;
+        font-size: 0.95rem;
     }
-  
+
     .search {
-      width: 90%;
-      max-width: 300px;
+        width: 90%;
+        max-width: 300px;
     }
-  
+
     .search input {
-      width: 100%;
+        width: 100%;
     }
-  
+
     .account {
-      justify-content: center;
+        justify-content: center;
     }
-  }
-  
-  /* ========================= */
-  /* TABLET */
-  /* ========================= */
-  @media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+@media (min-width: 768px) and (max-width: 1023px) {
     .header {
-      padding: 15px 20px;
+        padding: 15px 20px;
     }
-  
+
     .header__right {
-      gap: 15px;
+        gap: 15px;
     }
-  
+
     .logo img {
-      width: 50px;
-      height: 50px;
+        width: 50px;
+        height: 50px;
     }
-  
+
     .logo h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
-  
+
+    .text-roll-logo,
+    .text-roll-ec {
+        font-size: 2rem;
+    }
+
     .nav {
-      gap: 15px;
-      margin-right: 10px;
+        gap: 15px;
+        margin-right: 10px;
     }
-  
+
     .nav a {
-      font-size: 0.95rem;
+        font-size: 0.95rem;
     }
-  
+
     .search input {
-      width: 120px;
+        width: 120px;
     }
-  }
+}
