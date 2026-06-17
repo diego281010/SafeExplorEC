@@ -1,0 +1,190 @@
+/* ========================= */
+/* QUITO - MOBILE FIRST */
+/* ========================= */
+
+.quito {
+    padding: 7px;
+    margin-top: -20px;
+    background-color: rgba(146, 137, 126, 0.92);
+    background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKkZ72Jl2AX4NYbNEZS1tuXNiOkjao_vC1ONlHf-G5wDPhzSgGVxYYPrDVixWQqcsiwkPhSmxo9XLPbjmrYmHw5w9RnGleZxIjHltKlpQ7kd5kZCPdah2iNZJGk-6qoBJKin18oHu06g/s2048/Ecu.jpeg");
+}
+
+.quito h2 {
+    font-size: 40px;
+}
+
+.quito ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quito li div {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    width: 80%;
+    align-items: center;
+
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,.3);
+}
+
+.quito svg {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.robos__container svg {
+    color: #3e82fd;
+}
+
+.homicidios__container svg {
+    color: crimson;
+}
+
+.tasa__container svg {
+    color: #5441ff;
+}
+
+.robos,
+.homicidios,
+.tasa {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.porcentaje {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.robos__container .porcentaje {
+    color: #3f82fd;
+}
+
+.homicidios__container .porcentaje {
+    color: #ff4e4e;
+}
+
+.tasa__container .porcentaje {
+    color: #5441ff;
+}
+
+.casos {
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1.5;
+}
+
+.quito-img {
+    width: 100%;
+    max-width: 350px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 80px;
+    object-fit: cover;
+}
+
+.btn__info {
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    .quito__content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .quito ul {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .quito li {
+        flex: 1;
+        display: flex;
+    }
+
+    .quito-img {
+        max-width: 320px;
+        margin: 0;
+        align-self: center;
+    }
+
+    .robos,
+    .homicidios,
+    .tasa {
+        font-size: 12px;
+    }
+
+    .porcentaje {
+        font-size: 12px;
+    }
+
+    .casos {
+        font-size: 10px;
+    }
+}
+
+/* ========================= */
+/* DESKTOP */
+/* ========================= */
+
+@media (min-width: 1024px) {
+
+    .quito {
+        padding: 40px;
+    }
+
+    .quito__content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .quito ul {
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .quito li {
+        flex: 1;
+        display: flex;
+        max-width: 80%;
+    }
+
+    .quito li div {
+        padding: 30px;
+        width: 80%;
+    }
+
+    .quito svg {
+        font-size: 45px;
+    }
+
+    .quito-img {
+        width: 80%;
+    }
+}
