@@ -7,7 +7,6 @@
     box-sizing: border-box;
     }
 
-    /* ── Fila principal ── */
     .footer__content {
     display: flex;
     flex-direction: row;
@@ -17,7 +16,6 @@
     padding-bottom: 1.2rem;
     }
 
-    /* ── Inicio ── */
     .footer__nav {
     display: flex;
     align-items: center;
@@ -35,7 +33,6 @@
     opacity: 0.75;
     }
 
-    /* ── Contáctanos / Llámanos ── */
     .footer__contacto,
     .footer__telefono {
     display: flex;
@@ -73,14 +70,12 @@
     border-radius: 50%;
     }
 
-    /* ── Divisor ── */
     .footer__divider {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     margin: 0 0 0.5rem;
     }
 
-    /* ── URL inferior ── */
     .footer__url {
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
@@ -89,7 +84,6 @@
     padding-bottom: 0.4rem;
     }
 
-    /* ===== TABLET (≤ 768px) ===== */
     @media (max-width: 768px) {
     footer {
         padding: 1.2rem 2rem 0.6rem;
@@ -105,20 +99,17 @@
     }
     }
 
-    /* ===== MÓVIL (≤ 480px) ===== */
     @media (max-width: 480px) {
     footer {
         padding: 1.4rem 1.5rem 0.7rem;
     }
 
-    /* Columna vertical */
     .footer__content {
         flex-direction: column;
         align-items: flex-start;
         gap: 1.1rem;
     }
 
-    /* Logo centrado al final */
     .footer__logo {
         align-self: center;
         order: 4;
