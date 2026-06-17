@@ -1,0 +1,147 @@
+    /* ===== FOOTER ===== */
+    footer {
+    background-color: #7b1a1a;
+    color: #ffffff;
+    padding: 1.2rem 4rem 0.6rem;
+    width: 100%;
+    box-sizing: border-box;
+    }
+
+    /* ── Fila principal ── */
+    .footer__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding-bottom: 1.2rem;
+    }
+
+    /* ── Inicio ── */
+    .footer__nav {
+    display: flex;
+    align-items: center;
+    }
+
+    .footer__inicio {
+    color: #f0b429;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    }
+
+    .footer__inicio:hover {
+    opacity: 0.75;
+    }
+
+    /* ── Contáctanos / Llámanos ── */
+    .footer__contacto,
+    .footer__telefono {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    }
+
+    .footer__label {
+    color: #f0b429;
+    font-weight: 700;
+    font-size: 0.9rem;
+    }
+
+    .footer__value {
+    color: #ffffff;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    }
+
+    .footer__value:hover {
+    opacity: 0.75;
+    }
+
+    /* ── Logo ── */
+    .footer__logo {
+    display: flex;
+    align-items: center;
+    }
+
+    .footer__logo img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 50%;
+    }
+
+    /* ── Divisor ── */
+    .footer__divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 0 0.5rem;
+    }
+
+    /* ── URL inferior ── */
+    .footer__url {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    margin: 0;
+    padding-bottom: 0.4rem;
+    }
+
+    /* ===== TABLET (≤ 768px) ===== */
+    @media (max-width: 768px) {
+    footer {
+        padding: 1.2rem 2rem 0.6rem;
+    }
+
+    .footer__content {
+        gap: 2rem;
+    }
+
+    .footer__logo img {
+        width: 60px;
+        height: 60px;
+    }
+    }
+
+    /* ===== MÓVIL (≤ 480px) ===== */
+    @media (max-width: 480px) {
+    footer {
+        padding: 1.4rem 1.5rem 0.7rem;
+    }
+
+    /* Columna vertical */
+    .footer__content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.1rem;
+    }
+
+    /* Logo centrado al final */
+    .footer__logo {
+        align-self: center;
+        order: 4;
+    }
+
+    .footer__nav    { order: 1; }
+    .footer__contacto { order: 2; }
+    .footer__telefono { order: 3; }
+
+    .footer__logo img {
+        width: 64px;
+        height: 64px;
+    }
+
+    .footer__label {
+        font-size: 0.92rem;
+    }
+
+    .footer__value {
+        font-size: 0.9rem;
+    }
+
+    .footer__inicio {
+        font-size: 0.95rem;
+    }
+    }
