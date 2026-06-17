@@ -3,6 +3,7 @@ import './App.css';
 import Header from "./components/header/Header.jsx";
 // Importa tus páginas aquí
 import Landing from './pages/Landing';
+import Footer from './components/footer/Footer.jsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Landing />} />
         </Routes>
       </main>
+      <Footer/>
     </BrowserRouter>
   );
 }
