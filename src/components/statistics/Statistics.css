@@ -3,41 +3,114 @@
 /* ========================= */
 
 .quito {
-    padding: 7px;
+    padding: 20px;
     margin-top: -20px;
+
     background-color: rgba(146, 137, 126, 0.92);
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKkZ72Jl2AX4NYbNEZS1tuXNiOkjao_vC1ONlHf-G5wDPhzSgGVxYYPrDVixWQqcsiwkPhSmxo9XLPbjmrYmHw5w9RnGleZxIjHltKlpQ7kd5kZCPdah2iNZJGk-6qoBJKin18oHu06g/s2048/Ecu.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
-.quito h2 {
-    font-size: 40px;
+.quito h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
 }
 
-.quito ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
+.quito__content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 30px;
 }
 
-.quito li div {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 15px;
-    padding: 15px;
-    text-align: center;
-    width: 80%;
-    align-items: center;
+/* ========================= */
+/* TABS */
+/* ========================= */
 
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,.3);
+.tabs-wrapper {
+    width: 100%;
+    max-width: 700px;
+}
+
+.quito-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 0;
+    margin: 0 0 30px 0;
+
+    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.react-tabs__tab {
+    list-style: none;
+
+    cursor: pointer;
+
+    padding: 12px 24px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-weight: 600;
+
+    border: none !important;
+    outline: none;
+
+    background: transparent !important;
+
+    transition: all 0.3s ease;
+}
+
+.react-tabs__tab:hover {
+    color: white;
+}
+
+.react-tabs__tab--selected {
+    color: white;
+    border-bottom: 3px solid #3f82fd !important;
+}
+
+.react-tabs__tab-panel {
+    display: none;
+}
+
+.react-tabs__tab-panel--selected {
+    display: flex;
+    justify-content: center;
+}
+
+/* ========================= */
+/* CARDS */
+/* ========================= */
+
+.robos__container,
+.homicidios__container,
+.tasa__container {
+    width: 100%;
+    max-width: 650px;
+
+    background: #111827; /* sólido */
+
+    border: 1px solid #374151;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.4);
 }
 
 .quito svg {
-    font-size: 50px;
-    margin-bottom: 10px;
+    font-size: 70px;
+    margin-bottom: 15px;
 }
 
 .robos__container svg {
@@ -55,19 +128,20 @@
 .robos,
 .homicidios,
 .tasa {
-    color: #ffffff;
-    font-size: 22px;
+    color: white;
+    font-size: 2rem;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .porcentaje {
-    font-size: 30px;
+    font-size: 3rem;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .robos__container .porcentaje {
-    color: #3f82fd;
+    color: #3e82fd;
 }
 
 .homicidios__container .porcentaje {
@@ -79,23 +153,35 @@
 }
 
 .casos {
-    color: #ffffff;
-    font-size: 28px;
-    line-height: 1.5;
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 450px;
+    margin: 0 auto;
 }
+
+/* ========================= */
+/* IMAGEN */
+/* ========================= */
 
 .quito-img {
     width: 100%;
-    max-width: 350px;
-    display: block;
-    margin: 20px auto;
-    border-radius: 80px;
+    max-width: 450px;
+
+    border-radius: 30px;
+
     object-fit: cover;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
+
+/* ========================= */
+/* BOTON */
+/* ========================= */
 
 .btn__info {
     display: block;
-    margin: 20px auto 0 auto;
+    margin: 30px auto 0 auto;
 }
 
 /* ========================= */
@@ -105,43 +191,28 @@
 @media (min-width: 768px) and (max-width: 1023px) {
 
     .quito__content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
         gap: 30px;
-    }
-
-    .quito ul {
-        flex-direction: row;
-        align-items: stretch;
-        justify-content: center;
-        gap: 5px;
-        flex-wrap: wrap;
-    }
-
-    .quito li {
-        flex: 1;
-        display: flex;
-    }
-
-    .quito-img {
-        max-width: 320px;
-        margin: 0;
-        align-self: center;
+        align-items: center;
     }
 
     .robos,
     .homicidios,
     .tasa {
-        font-size: 12px;
+        font-size: 1.7rem;
     }
 
     .porcentaje {
-        font-size: 12px;
+        font-size: 2.5rem;
     }
 
     .casos {
-        font-size: 10px;
+        font-size: 1rem;
+    }
+
+    .quito-img {
+        max-width: 350px;
     }
 }
 
@@ -156,35 +227,84 @@
     }
 
     .quito__content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
         gap: 50px;
+        align-items: center;
     }
 
-    .quito ul {
-        flex-direction: row;
-        justify-content: center;
-        align-items: stretch;
-        gap: 10px;
+    .tabs-wrapper {
+        max-width: 800px;
     }
 
-    .quito li {
-        flex: 1;
-        display: flex;
-        max-width: 80%;
+    .robos__container,
+    .homicidios__container,
+    .tasa__container {
+        padding: 45px;
     }
 
-    .quito li div {
-        padding: 30px;
-        width: 80%;
-    }
+
 
     .quito svg {
-        font-size: 45px;
+        font-size: 80px;
+    }
+
+    .robos,
+    .homicidios,
+    .tasa {
+        font-size: 2.2rem;
+    }
+
+    .porcentaje {
+        font-size: 3.5rem;
+    }
+
+    .casos {
+        font-size: 1.3rem;
     }
 
     .quito-img {
-        width: 80%;
+        max-width: 500px;
     }
+}
+
+
+.stat-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #111827;
+
+    border-radius: 20px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.4);
+
+    margin: auto;
+}
+
+.stat-card svg {
+    font-size: 80px;
+    color: #3f82fd;
+    margin-bottom: 20px;
+}
+
+.stat-card h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.stat-card .porcentaje {
+    color: #3f82fd;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.stat-card .casos {
+    color: #d1d5db;
+    font-size: 1.2rem;
 }
