@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .login-container {
+    min-height: 100vh;
+    background: linear-gradient(
+      180deg,
+      #100900 0%,
+      #3d2600 100%
+    );
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-card {
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 20px;
+  
+    padding: 35px 25px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .35);
+  }
+  
+  .login-title {
+    width: 100%;
+    background: #e14646;
+    color: #2b1b1b;
+  
+    text-align: center;
+    padding: 12px;
+  
+    border-radius: 30px;
+  
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 50px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .icon {
+    font-size: 2rem;
+    color: #ffae00;
+  }
+  
+  .input-group input {
+    flex: 1;
+  
+    padding: 10px;
+    border: none;
+    background: #d9d9d9;
+  
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .btn-login {
+    margin-top: 20px;
+  
+    background: #ffae00;
+    color: #222;
+  
+    border: none;
+    border-radius: 10px;
+  
+    padding: 12px 28px;
+  
+    font-size: 1.2rem;
+    cursor: pointer;
+  
+    transition: .3s;
+  }
+  
+  .btn-login:hover {
+    transform: translateY(-2px);
+    opacity: .9;
+  }
+  
+  .register-link {
+    margin-top: 25px;
+    color: #333;
+    font-size: .95rem;
+  }
+  
+  .register-link span {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .input-group input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #d9d9d9;
+    font-size: 1rem;
+    outline: none;
+    color: #000; /* Texto negro */
+  }
+  
+  .input-group input::placeholder {
+    color: #555; /* Placeholder gris oscuro */
+  }
+
+  .register-card {
+    width: 350px;
+    background: white;
+    border-radius: 20px;
+    padding: 35px 25px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    box-shadow: 0 10px 20px rgba(0,0,0,.35);
+  }
