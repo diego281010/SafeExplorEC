@@ -1,5 +1,6 @@
 import { FaSearch, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Header.css";
 
@@ -72,7 +73,7 @@ function Header() {
       {/* Lado derecho - SIN ANIMACIÓN */}
       <div className="header__right">
         <nav className="nav">
-          <a href="#" className="activo">Inicio</a>
+          <Link to="/" className="activo">Inicio</Link>
           <a href="#">Quito</a>
           <a href="#">Casos Criminales</a>
           <a href="#">Mapas</a>
@@ -85,7 +86,7 @@ function Header() {
 
         <div className="account">
           <FaUser />
-          <a href="#">Crear Cuenta</a>
+          <Link to="/login"> Crear Cuenta</Link>
         </div>
       </div>
     </header>
