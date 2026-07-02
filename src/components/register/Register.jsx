@@ -5,9 +5,9 @@ import {
   FaLock,
   FaShieldAlt
 } from "react-icons/fa";
-import { NavLink } from "react-router"
+
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { useNavigate } from "react-router"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form";
 import { authFirebase } from "../../firebase";
 
