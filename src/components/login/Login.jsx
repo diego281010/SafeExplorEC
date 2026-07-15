@@ -1,3 +1,4 @@
+// src/components/login/Login.jsx
 import "./Login.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,13 +9,16 @@ import { authFirebase } from "../../firebase";
 function Login() {
 
   const navigate = useNavigate()
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm({
+  mode: 'onChange',
+  reValidateMode: 'onChange', 
+});
 
   const handleLogin = async (data) => {
     const { email, password } = data
     try {
       await signInWithEmailAndPassword(authFirebase, email, password)
-      navigate('/dashboard')
+      navigate('/perfil')
     } catch (error) {
       console.log(error)
       alert(error.message)
@@ -32,11 +36,15 @@ function Login() {
             <FaUser className="icon" />
             <input
               type="email"
-              placeholder="usuario"
-              {...register("email", { required: true })}
+              placeholder="correo"
+              {...register("email", { 
+                required: true,
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // ✅ AGREGADO: Formato de email válido
+              })}
             />
           </div>
-          {errors.email && <span className="errors">El email es requerido</span>}
+          {errors.email && errors.email.type === "required" && <span className="errors">El email es requerido</span>}
+          {errors.email && errors.email.type === "pattern" && <span className="errors">Ingresa un email válido</span>}
 
           <div className="input-group">
             <FaLock className="icon" />

@@ -89,15 +89,16 @@
 /* ===== NAVEGACIÓN SIN ANIMACIÓN ===== */
 .nav {
     display: flex;
-    gap: 25px;
+    gap: 18px;
     margin-left: auto;
     margin-right: 30px;
+    flex-wrap: wrap;
 }
 
 .nav a {
     color: var(--colorTres);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.92rem;
 }
 
 .nav a.activo {
@@ -154,6 +155,22 @@
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
+}
+
+.header__logout {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.header__logout:hover {
+    background: white;
+    color: var(--colorUno);
 }
 
 /* ========================= */

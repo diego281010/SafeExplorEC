@@ -1,7 +1,9 @@
 import { FaSearch, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useAuth } from "../../context/AuthContext";
+import { authFirebase } from "../../firebase";
 import "./Header.css";
 
 // Componente TextRoll corregido
@@ -57,6 +59,19 @@ const TextRoll = ({ children, className }) => {
 };
 
 function Header() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { user, userData, isAdmin } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await authFirebase.signOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <header className="header">
       {/* Logo con animación SOLO en el texto */}
@@ -73,10 +88,21 @@ function Header() {
       {/* Lado derecho - SIN ANIMACIÓN */}
       <div className="header__right">
         <nav className="nav">
-          <Link to="/" className="activo">Inicio</Link>
-          <a href="#">Quito</a>
-          <a href="#">Casos Criminales</a>
-          <a href="#">Mapas</a>
+          <Link to="/" className={pathname === "/" ? "activo" : ""}>Inicio</Link>
+          <Link to="/nosotros" className={pathname === "/nosotros" ? "activo" : ""}>Acerca de Nosotros</Link>
+          <Link to="/mapas" className={pathname === "/mapas" ? "activo" : ""}>Mapa Interactivo</Link>
+
+          {user && (
+            <>
+              <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""}>Zonas</Link>
+              <Link to="/quejas" className={pathname === "/quejas" ? "activo" : ""}>Quejas y Sugerencias</Link>
+              {isAdmin && (
+                <Link to="/admin/zonas" className={pathname === "/admin/zonas" ? "activo" : ""}>
+                  Panel Admin
+                </Link>
+              )}
+            </>
+          )}
         </nav>
 
         <div className="search">
@@ -86,7 +112,14 @@ function Header() {
 
         <div className="account">
           <FaUser />
-          <Link to="/login"> Crear Cuenta</Link>
+          {user ? (
+            <>
+              <Link to="/perfil">{userData?.nombre || "Mi Perfil"}</Link>
+              <button className="header__logout" onClick={handleLogout}>Salir</button>
+            </>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </div>
       </div>
     </header>

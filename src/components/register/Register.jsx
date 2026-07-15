@@ -1,33 +1,53 @@
+// src/components/register/Register.jsx
 import "./Register.css";
 import {
   FaUser,
   FaEnvelope,
   FaLock,
-  FaShieldAlt
+  FaShieldAlt,
+  FaUserCog
 } from "react-icons/fa";
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { useNavigate } from "react-router"
 import { useForm } from "react-hook-form";
-import { authFirebase } from "../../firebase";
+import { authFirebase, dbFirebase } from "../../firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 function Register() {
   const navigate = useNavigate()
-  const { register, handleSubmit, formState: { errors } } = useForm()
-
+const { register, handleSubmit, watch, formState: { errors } } = useForm({
+  mode: 'onChange', 
+  reValidateMode: 'onChange', 
+});
+  
+  // ✅ AGREGADO: Para validar que las contraseñas coincidan
+  const password = watch('password');
 
   const handleRegister = async (data) => {
-    const { email, password } = data
+    const { email, password, usuario, rol } = data
     try {
       const newUserFirebase = await createUserWithEmailAndPassword(authFirebase, email, password)
       const userRegister = newUserFirebase.user
-      console.log(userRegister)
+
+      if (userRegister) {
+        await setDoc(doc(dbFirebase, "Users", userRegister.uid), {
+          nombre: usuario,
+          apellido: "",
+          email: userRegister.email,
+          telefono: "",
+          cedula: "",
+          rol: rol === "admin" ? "admin" : "turista",
+          createdAt: serverTimestamp(),
+        })
+      }
+
       navigate("/login")
     } catch (error) {
       console.log(error.message)
       alert(error.message)
     }
   }
+  
   return (
     <div className="login-container">
       <form className="formulario" onSubmit={handleSubmit(handleRegister)}>
@@ -42,10 +62,14 @@ function Register() {
             <input
               type="text"
               placeholder="usuario"
-              {...register("usuario", { required: true })}
+              {...register("usuario", { 
+                required: true,
+                maxLength: 25 // ✅ AGREGADO: Máximo 25 caracteres
+              })}
             />
           </div>
-          {errors.usuario && <span className="errors">El usuario es requerido</span>}
+          {errors.usuario && errors.usuario.type === "required" && <span className="errors">El usuario es requerido</span>}
+          {errors.usuario && errors.usuario.type === "maxLength" && <span className="errors">Máximo 25 caracteres</span>}
 
           <div
             className="input-group"
@@ -56,10 +80,30 @@ function Register() {
             <input
               type="email"
               placeholder="correo"
-              {...register("email", { required: true })}
+              {...register("email", { 
+                required: true,
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // ✅ AGREGADO: Formato de email válido
+              })}
             />
           </div>
-          {errors.email && <span className="errors">El correo es requerido</span>}
+          {errors.email && errors.email.type === "required" && <span className="errors">El correo es requerido</span>}
+          {errors.email && errors.email.type === "pattern" && <span className="errors">Ingresa un email válido</span>}
+
+          <div
+            className="input-group"
+            data-aos="fade-right"
+            data-aos-delay="150"
+          >
+            <FaUserCog className="icon" />
+            <select
+              defaultValue="turista"
+              {...register("rol", { required: true })}
+            >
+              <option value="turista">Turista</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+          {errors.rol && <span className="errors">Selecciona un rol</span>}
 
           <div
             className="input-group"
@@ -70,10 +114,14 @@ function Register() {
             <input
               type="password"
               placeholder="contraseña"
-              {...register("password", { required: true })}
+              {...register("password", { 
+                required: true,
+                minLength: 5 // ✅ AGREGADO: Mínimo 5 caracteres
+              })}
             />
           </div>
-          {errors.password && <span className="errors">La contraseña es requerida</span>}
+          {errors.password && errors.password.type === "required" && <span className="errors">La contraseña es requerida</span>}
+          {errors.password && errors.password.type === "minLength" && <span className="errors">Mínimo 5 caracteres</span>}
 
           <div
             className="input-group"
@@ -84,11 +132,17 @@ function Register() {
             <input
               type="password"
               placeholder="confirmar contraseña"
-              {...register("confirmPassword", { required: true })}
+              {...register("confirmPassword", { 
+                required: true,
+                validate: value => value === password || "Las contraseñas no coinciden" // ✅ AGREGADO: Validación de coincidencia
+              })}
             />
           </div>
-          {errors.confirmPassword && (
+          {errors.confirmPassword && errors.confirmPassword.type === "required" && (
             <span className="errors">Confirma tu contraseña</span>
+          )}
+          {errors.confirmPassword && errors.confirmPassword.type === "validate" && (
+            <span className="errors">{errors.confirmPassword.message}</span>
           )}
 
           <button

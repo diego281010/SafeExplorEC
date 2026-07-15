@@ -1,0 +1,62 @@
+rules_version = '2';
+
+// Reglas sugeridas para Firestore - SafeExplorEC
+// Cópialas en Firebase Console > Firestore Database > Reglas
+// (o usa `firebase deploy --only firestore:rules` si usas Firebase CLI).
+//
+// Complementan la protección de rutas en el frontend: React Router solo oculta
+// la interfaz, pero cualquiera podría llamar a Firestore directamente si no
+// existen reglas. Estas reglas verifican el rol real guardado en /Users/{uid}.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function estaAutenticado() {
+      return request.auth != null;
+    }
+
+    function esDueno(uid) {
+      return estaAutenticado() && request.auth.uid == uid;
+    }
+
+    function rolActual() {
+      return get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.rol;
+    }
+
+    function esAdmin() {
+      return estaAutenticado() && rolActual() == "admin";
+    }
+
+    // --- Perfiles de usuario ---
+    match /Users/{uid} {
+      // Cada usuario puede leer y editar su propio perfil; un admin puede leer cualquiera.
+      allow read: if esDueno(uid) || esAdmin();
+      // El rol se elige en el propio formulario de registro (turista o admin).
+      allow create: if esDueno(uid);
+      // No se permite que el propio usuario cambie su campo "rol" (evita auto-ascenso a admin).
+      allow update: if esDueno(uid) && request.resource.data.rol == resource.data.rol
+                    || esAdmin();
+      allow delete: if esAdmin();
+    }
+
+    // --- Zonas de riesgo / turísticas ---
+    match /zonas/{zonaId} {
+      // Cualquier usuario autenticado puede consultar el listado (HU-011, HU-015, HU-033, HU-034).
+      allow read: if estaAutenticado();
+      // Solo el administrador puede registrar, editar o eliminar zonas (HU-008 a HU-017).
+      allow create, update, delete: if esAdmin();
+    }
+
+    // --- Quejas y sugerencias ---
+    match /quejas/{itemId} {
+      // El turista solo puede leer sus propios registros; el admin puede leer todos.
+      allow read: if esAdmin() || (estaAutenticado() && resource.data.autorUid == request.auth.uid);
+      // Cualquier usuario autenticado puede crear una queja/sugerencia propia (HU-036).
+      // El admin también puede crear sugerencias públicas (HU-018).
+      allow create: if estaAutenticado() && request.resource.data.autorUid == request.auth.uid;
+      // Solo el admin puede actualizar (responder) un registro (HU-020).
+      allow update: if esAdmin();
+      allow delete: if esAdmin();
+    }
+  }
+}

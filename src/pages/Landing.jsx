@@ -6,8 +6,6 @@ function Landing() {
     <div className="landing-container">
       <Main />
       <Statistics />
-      
-
     </div>
   );
 }
