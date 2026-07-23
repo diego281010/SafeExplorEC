@@ -110,35 +110,6 @@
     opacity: 0.8;
 }
 
-/* Buscador */
-.search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-}
-
-.search svg {
-    color: var(--colorUno);
-    font-size: 20px;
-}
-
-.search input {
-    width: 170px;
-    height: 30px;
-    background: transparent;
-    border: none;
-    padding: 0;
-    color: var(--colorCinco);
-    outline: none;
-}
-
-.search input::placeholder {
-    color: #999;
-}
-
 /* Cuenta */
 .account {
     display: flex;
@@ -212,15 +183,6 @@
 
     .nav a {
         font-size: 0.95rem;
-    }
-
-    .search {
-        width: 90%;
-        max-width: 300px;
-    }
-
-    .search input {
-        width: 100%;
     }
 
     .account {

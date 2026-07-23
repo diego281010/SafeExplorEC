@@ -154,9 +154,13 @@ function Complaints() {
                 id="asunto"
                 type="text"
                 placeholder="Resumen breve"
-                {...register("asunto", { required: true })}
+                {...register("asunto", {
+                  required: "El asunto es requerido",
+                  minLength: { value: 5, message: "El asunto debe tener al menos 5 caracteres" },
+                  maxLength: { value: 100, message: "El asunto no puede exceder 100 caracteres" },
+                })}
               />
-              {errors.asunto && <span className="errors">El asunto es requerido</span>}
+              {errors.asunto && <span className="errors">{errors.asunto.message}</span>}
             </div>
 
             <div className="campo">
@@ -164,9 +168,13 @@ function Complaints() {
               <textarea
                 id="mensaje"
                 placeholder="Describe tu queja o sugerencia"
-                {...register("mensaje", { required: true })}
+                {...register("mensaje", {
+                  required: "El mensaje es requerido",
+                  minLength: { value: 10, message: "El mensaje debe tener al menos 10 caracteres" },
+                  maxLength: { value: 1000, message: "El mensaje no puede exceder 1000 caracteres" },
+                })}
               />
-              {errors.mensaje && <span className="errors">El mensaje es requerido</span>}
+              {errors.mensaje && <span className="errors">{errors.mensaje.message}</span>}
             </div>
 
             <button className="btn" type="submit">Enviar</button>
