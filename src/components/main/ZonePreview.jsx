@@ -40,7 +40,7 @@ function ZonePreview() {
 
   return (
     <section className="zone-preview-section">
-      <h2>Zonas Destacadas</h2>
+      <h2>Zonas de Riesgo y Turísticas</h2>
       <p className="zone-preview-sub">Conoce las zonas registradas en nuestro sistema</p>
       <div className="zone-preview-grid">
         {zonas.map(function (zona) {

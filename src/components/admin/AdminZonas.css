@@ -255,3 +255,67 @@
     position: static;
   }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .admin-zonas {
+  background: #37373D;
+}
+
+html.dark-theme .admin-zonas h1,
+html.dark-theme .admin-zonas__form h3,
+html.dark-theme .admin-zonas__criminal legend,
+html.dark-theme .admin-zonas__list-header h3,
+html.dark-theme .admin-zonas__list-header select,
+html.dark-theme .admin-zonas .btn--outline {
+  color: #7EC8E3;
+}
+
+html.dark-theme .admin-zonas__subtitle {
+  color: #9db4c7;
+}
+
+html.dark-theme .admin-zonas__form {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-theme .admin-zonas__form label {
+  color: #9db4c7;
+}
+
+html.dark-theme .admin-zonas__form input,
+html.dark-theme .admin-zonas__form select,
+html.dark-theme .admin-zonas__form textarea {
+  border: 1px solid #2a3542;
+  background: #0d1117;
+  color: #7EC8E3;
+}
+
+html.dark-theme .admin-zonas .btn {
+  background: #0B2545;
+}
+
+html.dark-theme .admin-zonas .btn--outline {
+  border: 1px solid #7EC8E3;
+}
+
+html.dark-theme .admin-zonas__list-header select {
+  border: 1px solid #2a3542;
+  background: #161b22;
+}
+
+html.dark-theme .zona-card {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-theme .zona-card__top h4 {
+  color: #7EC8E3;
+}
+
+html.dark-theme .zona-card__desc,
+html.dark-theme .zona-card__crime {
+  color: #9db4c7;
+}

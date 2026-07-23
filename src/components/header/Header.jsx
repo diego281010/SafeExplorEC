@@ -1,8 +1,9 @@
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import { authFirebase } from "../../firebase";
 import "./Header.css";
 
@@ -62,6 +63,7 @@ function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user, userData, isAdmin } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -91,10 +93,11 @@ function Header() {
           <Link to="/" className={pathname === "/" ? "activo" : ""}>Inicio</Link>
           <Link to="/nosotros" className={pathname === "/nosotros" ? "activo" : ""}>Acerca de Nosotros</Link>
           <Link to="/mapas" className={pathname === "/mapas" ? "activo" : ""}>Mapa Interactivo</Link>
+          {/* Zonas es pública: visible con o sin sesión iniciada */}
+          <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""}>Zonas</Link>
 
           {user && (
             <>
-              <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""}>Zonas</Link>
               <Link to="/quejas" className={pathname === "/quejas" ? "activo" : ""}>Quejas y Sugerencias</Link>
               {isAdmin && (
                 <Link to="/admin/zonas" className={pathname === "/admin/zonas" ? "activo" : ""}>
@@ -106,6 +109,15 @@ function Header() {
         </nav>
 
         <div className="account">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={isDark ? "Activar modo claro" : "Activar modo oscuro"}
+            title={isDark ? "Modo claro" : "Modo oscuro"}
+          >
+            {isDark ? <FaSun /> : <FaMoon />}
+          </button>
           <FaUser />
           {user ? (
             <>

@@ -41,8 +41,9 @@ service cloud.firestore {
 
     // --- Zonas de riesgo / turísticas ---
     match /zonas/{zonaId} {
-      // Cualquier usuario autenticado puede consultar el listado (HU-011, HU-015, HU-033, HU-034).
-      allow read: if estaAutenticado();
+      // La ventana de Zonas, el Mapa Interactivo y la vista previa en Inicio deben
+      // poder verse sin iniciar sesión, por lo que la lectura es pública.
+      allow read: if true;
       // Solo el administrador puede registrar, editar o eliminar zonas (HU-008 a HU-017).
       allow create, update, delete: if esAdmin();
     }

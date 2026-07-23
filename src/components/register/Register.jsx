@@ -58,7 +58,8 @@ function Register() {
         nombre: docItem.data().nombre || "",
       }));
 
-      const duplicates = findDuplicateUser({ email: normalizedEmail, username: usuario }, existingUsers);
+      // Verificar duplicados antes de crear el usuario
+      const duplicates = findDuplicateUser({ email: normalizedEmail, username: normalizedUsername }, existingUsers);
 
       if (duplicates.emailExists) {
         setError("email", { type: "custom", message: "Este correo ya está registrado" });
@@ -126,6 +127,7 @@ function Register() {
               autoComplete="email"
               {...register("email", {
                 required: "El correo es requerido",
+                maxLength: { value: 100, message: "Máximo 100 caracteres" },
               })}
             />
           </div>
@@ -148,6 +150,8 @@ function Register() {
               autoComplete="new-password"
               {...register("password", {
                 required: "La contraseña es requerida",
+                minLength: { value: 5, message: "La contraseña debe tener al menos 5 caracteres" },
+                maxLength: { value: 50, message: "Máximo 50 caracteres" },
               })}
             />
           </div>
@@ -161,6 +165,7 @@ function Register() {
               autoComplete="new-password"
               {...register("confirmPassword", {
                 required: "Confirma tu contraseña",
+                maxLength: { value: 50, message: "Máximo 50 caracteres" },
                 validate: (value) => value === password || "Las contraseñas no coinciden",
               })}
             />

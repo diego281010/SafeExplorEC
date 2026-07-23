@@ -39,22 +39,31 @@ function Login() {
               placeholder="correo"
               {...register("email", { 
                 required: true,
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // ✅ AGREGADO: Formato de email válido
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // ✅ AGREGADO: Formato de email válido
+                maxLength: { value: 100, message: "Máximo 100 caracteres" },
               })}
             />
           </div>
           {errors.email && errors.email.type === "required" && <span className="errors">El email es requerido</span>}
           {errors.email && errors.email.type === "pattern" && <span className="errors">Ingresa un email válido</span>}
+          {errors.email && errors.email.type === "maxLength" && <span className="errors">{errors.email.message}</span>}
 
           <div className="input-group">
             <FaLock className="icon" />
             <input
               type="password"
               placeholder="contraseña"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                minLength: { value: 5, message: "La contraseña debe tener al menos 5 caracteres" },
+                maxLength: { value: 50, message: "Máximo 50 caracteres" },
+              })}
             />
           </div>
-          {errors.password && <span className="errors">La contraseña es requerida</span>}
+          {errors.password && errors.password.type === "required" && <span className="errors">La contraseña es requerida</span>}
+          {errors.password && (errors.password.type === "minLength" || errors.password.type === "maxLength") && (
+            <span className="errors">{errors.password.message}</span>
+          )}
 
           <button className="btn-login" type="submit">
             INGRESAR

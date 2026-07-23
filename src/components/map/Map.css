@@ -162,3 +162,50 @@
     height: 350px;
   }
 }
+
+.leaflet-search-group input,
+.leaflet-filter-group select,
+.leaflet-filter-group select option {
+  color: #333;           /* Texto oscuro sobre fondo blanco */
+  background-color: #fff;
+}
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .leaflet-map-section {
+  background-color: #37373D;
+}
+
+html.dark-theme .leaflet-map-header h2,
+html.dark-theme .leaflet-filter-group label {
+  color: #7EC8E3;
+}
+
+html.dark-theme .leaflet-map-header p,
+html.dark-theme .leaflet-legend {
+  color: #9db4c7;
+}
+
+html.dark-theme .leaflet-search-group input,
+html.dark-theme .leaflet-filter-group select {
+  border: 1px solid #2a3542;
+  background: #161b22;
+  color: #7EC8E3;
+}
+
+html.dark-theme .leaflet-search-btn {
+  background-color: #0B2545;
+}
+
+html.dark-theme .leaflet-search-btn:hover {
+  background-color: #163B6B;
+}
+
+html.dark-theme .leaflet-map-container {
+  border: 1px solid #2a3542;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+html.dark-theme .leaflet-loading {
+  background: rgba(13, 17, 23, 0.9);
+  color: #7EC8E3;
+}

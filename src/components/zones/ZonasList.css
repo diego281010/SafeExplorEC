@@ -115,3 +115,41 @@
     padding: 2rem 1.2rem 3rem;
   }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .zonas-list {
+  background: #37373D;
+}
+
+html.dark-theme .zonas-list h1 {
+  color: #7EC8E3;
+}
+
+html.dark-theme .zonas-list__subtitle {
+  color: #9db4c7;
+}
+
+html.dark-theme .zonas-list__filters label {
+  color: #9db4c7;
+}
+
+html.dark-theme .zonas-list__filters select {
+  border: 1px solid #2a3542;
+  background: #161b22;
+  color: #7EC8E3;
+}
+
+html.dark-theme .zona-item {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-theme .zona-item__top h3 {
+  color: #7EC8E3;
+}
+
+html.dark-theme .zona-item__desc,
+html.dark-theme .zona-item__crime {
+  color: #9db4c7;
+}
