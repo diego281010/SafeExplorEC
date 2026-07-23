@@ -1,216 +1,164 @@
-/* Estilos para la sección Mapa (Service) */
-.service {
-    padding: 4rem 2rem;
-    background-color: #f0f0f0;
+/* Leaflet Map Section */
+.leaflet-map-section {
+  padding: 2rem;
+  background: #f4f1ec;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.service__container {
-    max-width: 1200px;
-    margin: 0 auto;
+.leaflet-map-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.service h2 {
-    font-family: 'Abel', sans-serif;
-    font-size: 2.5rem;
-    color: #701B23;
-    margin-bottom: 2rem;
-    text-align: center;
+.leaflet-map-header h2 {
+  color: #701b23;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Fila que contiene contenido y mapa */
-.service__row {
-    display: flex;
+.leaflet-map-header p {
+  color: #666;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.leaflet-map-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.leaflet-search-group {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 250px;
+}
+
+.leaflet-search-group input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.leaflet-search-group input:focus {
+  border-color: #ffae00;
+}
+
+.leaflet-search-btn {
+  background: #701b23;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.leaflet-search-btn:hover {
+  opacity: 0.9;
+}
+
+.leaflet-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.leaflet-filter-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.leaflet-filter-group select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: white;
+}
+
+.leaflet-map-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 24px;
+  border-radius: 8px;
+  z-index: 1000;
+  font-weight: 600;
+  color: #701b23;
+}
+
+.leaflet-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.legend-dot.riesgo {
+  background: #d9534f;
+}
+
+.legend-dot.turistica {
+  background: #5cb85c;
+}
+
+@media (max-width: 600px) {
+  .leaflet-map-section {
+    padding: 1rem;
+  }
+
+  .leaflet-map-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .leaflet-map-controls {
     flex-direction: column;
-    gap: 2rem;
-}
+  }
 
-/* Lado izquierdo - contenido */
-.service__content {
-    flex: 1;
-}
-
-.service__description {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.1rem;
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-}
-
-/* Formulario */
-.service__form {
-    display: flex;
+  .leaflet-search-group {
     flex-direction: column;
-    gap: 1.5rem;
-}
+  }
 
-.service__form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.service__form-group label {
-    font-family: 'Lato', sans-serif;
-    font-weight: 600;
-    color: #701B23;
-    font-size: 1rem;
-}
-
-.service__form-group input {
-    padding: 0.8rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: 'Lato', sans-serif;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.service__form-group input:focus {
-    border-color: #FFAE00;
-    box-shadow: 0 0 0 3px rgba(255, 174, 0, 0.25);
-}
-
-.service__btn {
-    background-color: #701B23;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    font-family: 'Lato', sans-serif;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    width: fit-content;
-}
-
-.service__btn:hover {
-    background-color: #8B1E1E;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 18px rgba(112, 27, 35, 0.3);
-}
-
-.service__btn:active {
-    transform: translateY(0);
-}
-
-/* Lado derecho - mapa */
-.service__view {
-    flex: 1;
-    min-height: 400px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.service__view:hover {
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-    transform: translateY(-4px);
-}
-
-.service__view iframe {
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-    display: block;
-}
-
-/* MOBILE (hasta 767px) */
-@media (max-width: 767px) {
-    .service {
-        padding: 2rem 1rem;
-    }
-
-    .service h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .service__description {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .service__form-group input {
-        padding: 0.7rem 0.8rem;
-    }
-
-    .service__btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .service__view {
-        min-height: 300px;
-    }
-
-    .service__view iframe {
-        min-height: 300px;
-    }
-}
-
-/* TABLET Y DESKTOP (768px y más) */
-@media (min-width: 768px) {
-    .service {
-        padding: 4rem 3rem;
-    }
-
-    .service__row {
-        flex-direction: row;
-        align-items: stretch;
-        gap: 3rem;
-    }
-
-    .service__content {
-        width: 40%;
-    }
-
-    .service__view {
-        width: 60%;
-        min-height: 450px;
-    }
-
-    .service__view iframe {
-        min-height: 450px;
-    }
-}
-
-/* DESKTOP (1024px y más) */
-@media (min-width: 1024px) {
-    .service {
-        padding: 5rem 4rem;
-    }
-
-    .service h2 {
-        font-size: 2.8rem;
-    }
-
-    .service__description {
-        font-size: 1.2rem;
-    }
-
-    .service__form-group label {
-        font-size: 1.1rem;
-    }
-
-    .service__form-group input {
-        padding: 0.9rem 1.2rem;
-        font-size: 1rem;
-    }
-
-    .service__btn {
-        padding: 0.9rem 2rem;
-        font-size: 1rem;
-    }
-
-    .service__view {
-        min-height: 500px;
-    }
-
-    .service__view iframe {
-        min-height: 500px;
-    }
+  .leaflet-map-container {
+    height: 350px;
+  }
 }

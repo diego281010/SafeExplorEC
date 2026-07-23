@@ -1,23 +1,20 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-// Envuelve rutas privadas.
-// - Si no hay sesión, redirige a /login.
-// - Si se define allowedRoles y el rol del usuario no está incluido, redirige a /acceso-denegado.
-// Mientras se resuelve el estado de autenticación se muestra un loader simple.
 function ProtectedRoute({ children, allowedRoles }) {
   const { user, rol, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
       <div style={{ padding: "4rem", textAlign: "center" }}>
-        Cargando...
+        Verificando acceso...
       </div>
     );
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(rol)) {

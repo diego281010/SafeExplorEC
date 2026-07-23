@@ -147,9 +147,13 @@ function AdminZonas() {
               id="nombre"
               type="text"
               placeholder="Ej: La Carolina"
-              {...register("nombre", { required: true })}
+              {...register("nombre", {
+                required: "El nombre es requerido",
+                minLength: { value: 3, message: "El nombre debe tener al menos 3 caracteres" },
+                maxLength: { value: 80, message: "El nombre no puede exceder 80 caracteres" },
+              })}
             />
-            {errors.nombre && <span className="errors">El nombre es requerido</span>}
+            {errors.nombre && <span className="errors">{errors.nombre.message}</span>}
           </div>
 
           {/* ✅ Campo: Dirección (Google Maps) */}
@@ -159,9 +163,12 @@ function AdminZonas() {
               id="direccion"
               type="text"
               placeholder="Ej: Av. Amazonas y Naciones Unidas, Quito"
-              {...register("direccion", { required: true })}
+              {...register("direccion", {
+                required: "La dirección es requerida",
+                minLength: { value: 5, message: "La dirección debe tener al menos 5 caracteres" },
+              })}
             />
-            {errors.direccion && <span className="errors">La dirección es requerida</span>}
+            {errors.direccion && <span className="errors">{errors.direccion.message}</span>}
           </div>
 
           {/* ✅ Campo: Descripción */}
@@ -170,8 +177,11 @@ function AdminZonas() {
             <textarea
               id="descripcion"
               placeholder="Descripción general de la zona"
-              {...register("descripcion")}
+              {...register("descripcion", {
+                maxLength: { value: 500, message: "La descripción no puede exceder 500 caracteres" },
+              })}
             />
+            {errors.descripcion && <span className="errors">{errors.descripcion.message}</span>}
           </div>
 
           {/* ✅ Fieldset: Detalles criminales */}

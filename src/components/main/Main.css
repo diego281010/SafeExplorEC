@@ -1,6 +1,4 @@
 /* Hero Section - Estilos Base */
-
-
 .hero {
   min-height: 100vh;
   background-image:
@@ -35,7 +33,6 @@
   margin-bottom: 25px;
 }
 
-/* Beneficios dentro del Hero */
 .beneficios {
   padding-bottom: 30px;
 }
@@ -73,15 +70,12 @@
   padding: 20px;
 }
 
-
-/* Usamos el contenedor padre para asegurar mayor especificidad */
 .beneficio i {
-  font-size: 70px !important;    /* Tamaño más grande */
-  color: #FFAE00 !important;      /* Color amarillo exacto */
+  font-size: 70px !important;
+  color: #FFAE00 !important;
   margin-bottom: 15px;
-  display: block;                 /* Asegura que el icono tome el tamaño */
+  display: block;
 }
-
 
 .beneficio h3 {
   color: #8B1E1E;
@@ -91,7 +85,6 @@
   line-height: 1.3;
 }
 
-/* Estilos adicionales que parecen estar relacionados con el contenido del Hero */
 .hero__content h2 {
   font-family: 'Abel', sans-serif;
   margin: 0 0 1.2rem;
@@ -126,8 +119,163 @@
 }
 
 .beneficio .svg-inline--fa {
-  font-size: 40px !important; /* Tamaño grande */
-  color: #FFAE00 !important;  /* Color amarillo solicitado */
-  margin-bottom: 15px;        /* Espacio debajo del icono */
-  display: block;             /* Necesario para que el margen y tamaño funcionen bien */
+  font-size: 40px !important;
+  color: #FFAE00 !important;
+  margin-bottom: 15px;
+  display: block;
+}
+
+/* Zone Preview */
+.zone-preview-section {
+  padding: 3rem 4rem;
+  background: #f4f1ec;
+}
+
+.zone-preview-section h2 {
+  color: #701b23;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.zone-preview-sub {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.zone-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.zone-preview-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  border-left: 5px solid #5cb85c;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.zone-preview-card.riesgo {
+  border-left-color: #d9534f;
+}
+
+.zone-preview-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: white;
+  background: #5cb85c;
+  align-self: flex-start;
+}
+
+.zone-preview-card.riesgo .zone-preview-badge {
+  background: #d9534f;
+}
+
+.zone-preview-card h3 {
+  margin: 0;
+  color: #222;
+  font-size: 1.15rem;
+}
+
+.zone-preview-dir {
+  font-size: 0.82rem;
+  color: #1a73e8;
+  margin: 0;
+}
+
+.zone-preview-desc {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.zone-preview-level {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+  align-self: flex-start;
+}
+
+@media (max-width: 600px) {
+  .zone-preview-section {
+    padding: 2rem 1rem;
+  }
+  .zone-preview-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .hero {
+    padding: 30px 16px;
+    min-height: 90vh;
+  }
+
+  .hero__card {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px;
+    border-radius: 30px;
+  }
+
+  .hero__card h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .hero__card p {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+  }
+
+  .beneficios__titulo span {
+    font-size: 1.3rem;
+    padding: 10px 30px;
+  }
+
+  .beneficio {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    min-height: 140px;
+  }
+
+  .beneficio h3 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* TABLET */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__card {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .hero__card h2 {
+    font-size: 3rem;
+  }
+
+  .hero__card p {
+    font-size: 1.4rem;
+  }
 }

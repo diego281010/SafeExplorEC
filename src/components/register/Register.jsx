@@ -1,58 +1,105 @@
 // src/components/register/Register.jsx
 import "./Register.css";
-import {
-  FaUser,
-  FaEnvelope,
-  FaLock,
-  FaShieldAlt,
-  FaUserCog
-} from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { FaUser, FaEnvelope, FaLock, FaShieldAlt, FaUserCog } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { authFirebase, dbFirebase } from "../../firebase";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  findDuplicateUser,
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from "../../utils/registrationValidation";
 
 function Register() {
-  const navigate = useNavigate()
-const { register, handleSubmit, watch, formState: { errors } } = useForm({
-  mode: 'onChange', 
-  reValidateMode: 'onChange', 
-});
-  
-  // ✅ AGREGADO: Para validar que las contraseñas coincidan
-  const password = watch('password');
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
+
+  const password = watch("password");
 
   const handleRegister = async (data) => {
-    const { email, password, usuario, rol } = data
+    const { email, password: passwordValue, usuario, rol } = data;
+    const normalizedEmail = (email || "").trim().toLowerCase();
+    const normalizedUsername = (usuario || "").trim().toLowerCase();
+
+    clearErrors(["email", "usuario", "password", "confirmPassword"]);
+
+    if (!validateEmail(normalizedEmail)) {
+      setError("email", { type: "custom", message: "Ingresa un email válido" });
+      return;
+    }
+
+    if (!validateUsername(usuario)) {
+      setError("usuario", { type: "custom", message: "Usa 3 a 20 letras, números o guion bajo" });
+      return;
+    }
+
+    if (!validatePassword(passwordValue)) {
+      setError("password", { type: "custom", message: "La contraseña debe tener al menos 5 caracteres" });
+      return;
+    }
+
     try {
-      const newUserFirebase = await createUserWithEmailAndPassword(authFirebase, email, password)
-      const userRegister = newUserFirebase.user
+      const usersSnapshot = await getDocs(collection(dbFirebase, "Users"));
+      const existingUsers = usersSnapshot.docs.map((docItem) => ({
+        email: docItem.data().email || "",
+        nombre: docItem.data().nombre || "",
+      }));
+
+      const duplicates = findDuplicateUser({ email: normalizedEmail, username: usuario }, existingUsers);
+
+      if (duplicates.emailExists) {
+        setError("email", { type: "custom", message: "Este correo ya está registrado" });
+        return;
+      }
+
+      if (duplicates.usernameExists) {
+        setError("usuario", { type: "custom", message: "Ese nombre de usuario ya está en uso" });
+        return;
+      }
+
+      const newUserFirebase = await createUserWithEmailAndPassword(authFirebase, normalizedEmail, passwordValue);
+      const userRegister = newUserFirebase.user;
 
       if (userRegister) {
         await setDoc(doc(dbFirebase, "Users", userRegister.uid), {
-          nombre: usuario,
+          nombre: usuario.trim(),
           apellido: "",
-          email: userRegister.email,
+          email: normalizedEmail,
           telefono: "",
           cedula: "",
           rol: rol === "admin" ? "admin" : "turista",
           createdAt: serverTimestamp(),
-        })
+        });
       }
 
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
-      console.log(error.message)
-      alert(error.message)
+      console.log(error.message);
+      if (error.message?.includes("already in use")) {
+        setError("email", { type: "custom", message: "Este correo ya está registrado" });
+      } else {
+        alert(error.message);
+      }
     }
-  }
-  
+  };
+
   return (
     <div className="login-container">
       <form className="formulario" onSubmit={handleSubmit(handleRegister)}>
         <div className="register-card" data-aos="zoom-in">
-
           <h1 className="login-title" data-aos="fade-down">
             REGISTRARSE
           </h1>
@@ -61,107 +108,72 @@ const { register, handleSubmit, watch, formState: { errors } } = useForm({
             <FaUser className="icon" />
             <input
               type="text"
-              placeholder="usuario"
-              {...register("usuario", { 
-                required: true,
-                maxLength: 25 // ✅ AGREGADO: Máximo 25 caracteres
+              placeholder="Usuario"
+              autoComplete="username"
+              {...register("usuario", {
+                required: "El usuario es requerido",
+                maxLength: { value: 20, message: "Máximo 20 caracteres" },
               })}
             />
           </div>
-          {errors.usuario && errors.usuario.type === "required" && <span className="errors">El usuario es requerido</span>}
-          {errors.usuario && errors.usuario.type === "maxLength" && <span className="errors">Máximo 25 caracteres</span>}
+          {errors.usuario && <span className="errors">{errors.usuario.message}</span>}
 
-          <div
-            className="input-group"
-            data-aos="fade-left"
-            data-aos-delay="100"
-          >
+          <div className="input-group" data-aos="fade-left" data-aos-delay="100">
             <FaEnvelope className="icon" />
             <input
               type="email"
-              placeholder="correo"
-              {...register("email", { 
-                required: true,
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // ✅ AGREGADO: Formato de email válido
+              placeholder="Correo"
+              autoComplete="email"
+              {...register("email", {
+                required: "El correo es requerido",
               })}
             />
           </div>
-          {errors.email && errors.email.type === "required" && <span className="errors">El correo es requerido</span>}
-          {errors.email && errors.email.type === "pattern" && <span className="errors">Ingresa un email válido</span>}
+          {errors.email && <span className="errors">{errors.email.message}</span>}
 
-          <div
-            className="input-group"
-            data-aos="fade-right"
-            data-aos-delay="150"
-          >
+          <div className="input-group" data-aos="fade-right" data-aos-delay="150">
             <FaUserCog className="icon" />
-            <select
-              defaultValue="turista"
-              {...register("rol", { required: true })}
-            >
+            <select defaultValue="turista" {...register("rol", { required: "Selecciona un rol" })}>
               <option value="turista">Turista</option>
               <option value="admin">Administrador</option>
             </select>
           </div>
-          {errors.rol && <span className="errors">Selecciona un rol</span>}
+          {errors.rol && <span className="errors">{errors.rol.message}</span>}
 
-          <div
-            className="input-group"
-            data-aos="fade-right"
-            data-aos-delay="200"
-          >
+          <div className="input-group" data-aos="fade-right" data-aos-delay="200">
             <FaLock className="icon" />
             <input
               type="password"
-              placeholder="contraseña"
-              {...register("password", { 
-                required: true,
-                minLength: 5 // ✅ AGREGADO: Mínimo 5 caracteres
+              placeholder="Contraseña"
+              autoComplete="new-password"
+              {...register("password", {
+                required: "La contraseña es requerida",
               })}
             />
           </div>
-          {errors.password && errors.password.type === "required" && <span className="errors">La contraseña es requerida</span>}
-          {errors.password && errors.password.type === "minLength" && <span className="errors">Mínimo 5 caracteres</span>}
+          {errors.password && <span className="errors">{errors.password.message}</span>}
 
-          <div
-            className="input-group"
-            data-aos="fade-left"
-            data-aos-delay="300"
-          >
+          <div className="input-group" data-aos="fade-left" data-aos-delay="300">
             <FaShieldAlt className="icon" />
             <input
               type="password"
-              placeholder="confirmar contraseña"
-              {...register("confirmPassword", { 
-                required: true,
-                validate: value => value === password || "Las contraseñas no coinciden" // ✅ AGREGADO: Validación de coincidencia
+              placeholder="Confirmar contraseña"
+              autoComplete="new-password"
+              {...register("confirmPassword", {
+                required: "Confirma tu contraseña",
+                validate: (value) => value === password || "Las contraseñas no coinciden",
               })}
             />
           </div>
-          {errors.confirmPassword && errors.confirmPassword.type === "required" && (
-            <span className="errors">Confirma tu contraseña</span>
-          )}
-          {errors.confirmPassword && errors.confirmPassword.type === "validate" && (
-            <span className="errors">{errors.confirmPassword.message}</span>
-          )}
+          {errors.confirmPassword && <span className="errors">{errors.confirmPassword.message}</span>}
 
-          <button
-            className="btn-login"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-            type="submit"
-          >
+          <button className="btn-login" data-aos="zoom-in" data-aos-delay="400" type="submit">
             REGISTRAR
           </button>
 
-          <p
-            className="register-link"
-            data-aos="fade-up"
-            data-aos-delay="500"
-          >
+          <p className="register-link" data-aos="fade-up" data-aos-delay="500">
             ¿Ya tienes cuenta? <NavLink to="/login" className="enlace"><span>Inicia sesión</span></NavLink>
           </p>
-
         </div>
       </form>
     </div>
