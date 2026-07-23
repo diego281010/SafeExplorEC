@@ -33,6 +33,7 @@ function Complaints() {
     register: registerSugerencia,
     handleSubmit: handleSubmitSugerencia,
     reset: resetSugerencia,
+    formState: { errors: errorsSugerencia },
   } = useForm();
 
   const cargarItems = async () => {
@@ -107,6 +108,10 @@ function Complaints() {
     const texto = respuestas[id];
     if (!texto || !texto.trim()) {
       alert("Escribe una respuesta antes de enviar.");
+      return;
+    }
+    if (texto.trim().length > 1000) {
+      alert("La respuesta no puede exceder 1000 caracteres.");
       return;
     }
     try {

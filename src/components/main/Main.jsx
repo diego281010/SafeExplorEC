@@ -19,7 +19,6 @@ const Main = () => {
             Mapas, estadísticas y consejos para moverte seguro en Quito.
             Una decisión informada = una vida a salvo.
           </p>
-          <a href="#" className="btn">Más Información</a>
         </div>
 
         <div className="beneficios">

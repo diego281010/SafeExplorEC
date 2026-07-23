@@ -1,8 +1,44 @@
 :root {
-    --colorUno: #701B23;
-    --colorDos: #FFAE00;
+    --colorUno: #701B23;       /* Rojo vino principal (color original) */
+    --colorUnoHover: #a31d22;  /* Variante para hover/acentos */
+    --colorDos: #FFAE00;       /* Ámbar de acento */
     --colorTres: #FFFFFF;
     --colorCinco: #000000;
+}
+
+/* ===== MODO OSCURO (toggle global del sitio) ===== */
+html.dark-theme {
+    --bg: #37373D;
+    --text: #c9d6e3;
+    --text-h: #e8f1fa;
+    --border: #2e303a;
+
+    --colorUno: #0B2545;       /* Azul oscuro principal en modo oscuro */
+    --colorUnoHover: #163B6B;  /* Azul un poco más claro para hover/acentos */
+    --colorOscuro: #0d1117;    /* Negro/gris muy oscuro para fondos */
+    --colorOscuro2: #161b22;   /* Superficie oscura secundaria (tarjetas) */
+    --colorCeleste: #7EC8E3;   /* Celeste para texto sobre fondos oscuros */
+    --colorCelesteFuerte: #38BDF8;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--colorTres);
+    color: var(--colorTres);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.theme-toggle:hover {
+    background: var(--colorTres);
+    color: var(--colorUno);
 }
 
 /* Header */

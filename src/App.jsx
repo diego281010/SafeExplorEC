@@ -14,44 +14,33 @@ import Quejas from './pages/Quejas.jsx';
 import AccessDenied from './pages/AccessDenied.jsx';
 import ChatBot from './components/chatbot/ChatBot.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
 import ProtectedRoute from './components/routes/ProtectedRoute.jsx';
 
 function App() {
   return (
+    <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
         <Header />
         <main>
           <Routes>
-            {/* Rutas públicas */}
+            {/* Rutas públicas: Inicio, Nosotros, Mapa Interactivo y Zonas
+                son visibles sin necesidad de iniciar sesión. */}
             <Route path="/" element={<Landing />} />
             <Route path="/nosotros" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/acceso-denegado" element={<AccessDenied />} />
+            <Route path="/mapas" element={<Mapas />} />
+            <Route path="/zonas" element={<Zonas />} />
 
-            {/* Rutas protegidas: cualquier usuario autenticado */}
-            <Route
-              path="/mapas"
-              element={
-                <ProtectedRoute allowedRoles={["admin", "turista"]}>
-                  <Mapas />
-                </ProtectedRoute>
-              }
-            />
+            {/* Rutas protegidas: cualquier usuario autenticado (admin o turista) */}
             <Route
               path="/perfil"
               element={
                 <ProtectedRoute allowedRoles={["admin", "turista"]}>
                   <Perfil />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/zonas"
-              element={
-                <ProtectedRoute allowedRoles={["admin", "turista"]}>
-                  <Zonas />
                 </ProtectedRoute>
               }
             />
@@ -79,6 +68,7 @@ function App() {
         <Footer />
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 

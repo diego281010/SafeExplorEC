@@ -210,3 +210,77 @@
     padding: 2rem 1.2rem 3rem;
   }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .complaints {
+  background: #37373D;
+}
+
+html.dark-theme .complaints h1,
+html.dark-theme .complaints__form h3,
+html.dark-theme .complaint-card__respuesta strong {
+  color: #7EC8E3;
+}
+
+html.dark-theme .complaints__subtitle {
+  color: #9db4c7;
+}
+
+html.dark-theme .complaints__form {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-theme .complaints__form label,
+html.dark-theme .complaints__filters label {
+  color: #9db4c7;
+}
+
+html.dark-theme .complaints__form input,
+html.dark-theme .complaints__form select,
+html.dark-theme .complaints__form textarea {
+  border: 1px solid #2a3542;
+  background: #0d1117;
+  color: #7EC8E3;
+}
+
+html.dark-theme .complaints .btn {
+  background: #0B2545;
+}
+
+html.dark-theme .complaints__filters select {
+  border: 1px solid #2a3542;
+  background: #161b22;
+  color: #7EC8E3;
+}
+
+html.dark-theme .complaint-card {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-theme .complaint-card h4 {
+  color: #7EC8E3;
+}
+
+html.dark-theme .complaint-card__autor {
+  color: #7a93a8;
+}
+
+html.dark-theme .complaint-card__mensaje {
+  color: #9db4c7;
+}
+
+html.dark-theme .complaint-card__respuesta {
+  background: #0d1117;
+  border: 1px solid #2a3542;
+  color: #9db4c7;
+}
+
+html.dark-theme .complaint-card__reply textarea {
+  border: 1px solid #2a3542;
+  background: #0d1117;
+  color: #7EC8E3;
+}
