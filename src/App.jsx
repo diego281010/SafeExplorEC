@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from "./components/header/Header.jsx";
-// Importa tus páginas aquí
 import Landing from './pages/Landing';
 import About from './pages/About.jsx';
 import Mapas from './pages/Mapas.jsx';
@@ -13,6 +12,7 @@ import Zonas from './pages/Zonas.jsx';
 import AdminZonasPage from './pages/AdminZonasPage.jsx';
 import Quejas from './pages/Quejas.jsx';
 import AccessDenied from './pages/AccessDenied.jsx';
+import ChatBot from './components/chatbot/ChatBot.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import ProtectedRoute from './components/routes/ProtectedRoute.jsx';
 
@@ -26,6 +26,11 @@ function App() {
             {/* Rutas públicas */}
             <Route path="/" element={<Landing />} />
             <Route path="/nosotros" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/acceso-denegado" element={<AccessDenied />} />
+
+            {/* Rutas protegidas: cualquier usuario autenticado */}
             <Route
               path="/mapas"
               element={
@@ -34,11 +39,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/acceso-denegado" element={<AccessDenied />} />
-
-            {/* Rutas protegidas: cualquier usuario autenticado (admin o turista) */}
             <Route
               path="/perfil"
               element={
@@ -75,6 +75,7 @@ function App() {
             />
           </Routes>
         </main>
+        <ChatBot />
         <Footer />
       </BrowserRouter>
     </AuthProvider>

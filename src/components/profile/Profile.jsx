@@ -112,9 +112,10 @@ function Profile() {
           <form className="profile__form" onSubmit={handleSubmit(handleUpdate)}>
             <div className="campo">
               <label>Nombre</label>
-              <input type="text" {...register("nombre", { required: true })} />
-              {errors.nombre && <span className="errors">El nombre es requerido</span>}
+              <input type="text" {...register("nombre", { required: "El nombre es requerido" })} />
+              {errors.nombre && <span className="errors">{errors.nombre.message}</span>}
             </div>
+
 
             <div className="campo">
               <label>Apellido</label>

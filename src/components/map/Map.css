@@ -1,124 +1,164 @@
-/* Estilos para la sección Mapa (Service) */
-.service {
-    padding: 4rem 2rem;
-    background-color: #f0f0f0;
+/* Leaflet Map Section */
+.leaflet-map-section {
+  padding: 2rem;
+  background: #f4f1ec;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.service__container {
-    max-width: 1200px;
-    margin: 0 auto;
+.leaflet-map-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.service h2 {
-    font-family: 'Abel', sans-serif;
-    font-size: 2.5rem;
-    color: #701B23;
-    margin-bottom: 1.5rem;
-    text-align: center;
+.leaflet-map-header h2 {
+  color: #701b23;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Texto descriptivo centrado */
-.service__content-text {
-    text-align: center;
-    margin-bottom: 2rem;
+.leaflet-map-header p {
+  color: #666;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.service__description {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.1rem;
-    color: #333;
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto;
+.leaflet-map-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
 
-/* Fila que contiene el mapa */
-.service__row {
-    display: flex;
+.leaflet-search-group {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 250px;
+}
+
+.leaflet-search-group input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.leaflet-search-group input:focus {
+  border-color: #ffae00;
+}
+
+.leaflet-search-btn {
+  background: #701b23;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.leaflet-search-btn:hover {
+  opacity: 0.9;
+}
+
+.leaflet-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.leaflet-filter-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.leaflet-filter-group select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: white;
+}
+
+.leaflet-map-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 24px;
+  border-radius: 8px;
+  z-index: 1000;
+  font-weight: 600;
+  color: #701b23;
+}
+
+.leaflet-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.legend-dot.riesgo {
+  background: #d9534f;
+}
+
+.legend-dot.turistica {
+  background: #5cb85c;
+}
+
+@media (max-width: 600px) {
+  .leaflet-map-section {
+    padding: 1rem;
+  }
+
+  .leaflet-map-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .leaflet-map-controls {
     flex-direction: column;
-    gap: 2rem;
-}
+  }
 
-/* Mapa ocupando todo el ancho */
-.service__view {
-    width: 100%;
-    min-height: 450px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
+  .leaflet-search-group {
+    flex-direction: column;
+  }
 
-.service__view:hover {
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-    transform: translateY(-4px);
-}
-
-.service__view iframe {
-    width: 100%;
-    height: 100%;
-    min-height: 450px;
-    display: block;
-}
-
-/* MOBILE (hasta 767px) */
-@media (max-width: 767px) {
-    .service {
-        padding: 2rem 1rem;
-    }
-
-    .service h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1.2rem;
-    }
-
-    .service__description {
-        font-size: 1rem;
-    }
-
-    .service__view {
-        min-height: 300px;
-    }
-
-    .service__view iframe {
-        min-height: 300px;
-    }
-}
-
-/* TABLET Y DESKTOP (768px y más) */
-@media (min-width: 768px) {
-    .service {
-        padding: 4rem 3rem;
-    }
-
-    .service__view {
-        min-height: 500px;
-    }
-
-    .service__view iframe {
-        min-height: 500px;
-    }
-}
-
-/* DESKTOP (1024px y más) */
-@media (min-width: 1024px) {
-    .service {
-        padding: 5rem 4rem;
-    }
-
-    .service h2 {
-        font-size: 2.8rem;
-    }
-
-    .service__description {
-        font-size: 1.2rem;
-    }
-
-    .service__view {
-        min-height: 550px;
-    }
-
-    .service__view iframe {
-        min-height: 550px;
-    }
+  .leaflet-map-container {
+    height: 350px;
+  }
 }

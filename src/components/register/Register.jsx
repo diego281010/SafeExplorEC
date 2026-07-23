@@ -52,14 +52,13 @@ function Register() {
     }
 
     try {
-      // Verificar duplicados antes de crear el usuario
       const usersSnapshot = await getDocs(collection(dbFirebase, "Users"));
       const existingUsers = usersSnapshot.docs.map((docItem) => ({
         email: docItem.data().email || "",
         nombre: docItem.data().nombre || "",
       }));
 
-      const duplicates = findDuplicateUser({ email: normalizedEmail, username: normalizedUsername }, existingUsers);
+      const duplicates = findDuplicateUser({ email: normalizedEmail, username: usuario }, existingUsers);
 
       if (duplicates.emailExists) {
         setError("email", { type: "custom", message: "Este correo ya está registrado" });
@@ -182,4 +181,3 @@ function Register() {
 }
 
 export default Register;
-

@@ -130,9 +130,8 @@
     cursor: pointer;
   }
 
-.register-card {
+  .register-card {
     width: 350px;
-    max-width: 100%;
     background: white;
     border-radius: 20px;
     padding: 35px 25px;
@@ -145,24 +144,43 @@
   }
 
   @media (max-width: 600px) {
+    .login-container {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
     .register-card {
+      padding: 24px 16px;
       width: 100%;
       max-width: 360px;
-      padding: 24px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-  
+
     .login-title {
       font-size: 1.35rem;
     }
-  
+
+    .formulario {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-group {
+      width: 100%;
+    }
+
     .btn-login {
       width: 100%;
       max-width: 280px;
     }
-  
+
     .register-link {
       text-align: center;
       width: 100%;
