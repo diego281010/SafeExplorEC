@@ -23,9 +23,10 @@ const TIPOS_DELITO = ["Robos", "Homicidios", "Asaltos", "Extorsión", "Otros"];
 // zonas de riesgo y zonas turísticas (solo administrador).
 function AdminZonas() {
   const { user } = useAuth();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({
     defaultValues: { tipo: "riesgo" },
   });
+  const tipoSeleccionado = watch("tipo");
 
   const [zonas, setZonas] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -191,12 +192,19 @@ function AdminZonas() {
             {/* ✅ Campo: Tipo de delito predominante */}
             <div className="campo">
               <label htmlFor="tipoDelito">Tipo de delito predominante</label>
-              <select id="tipoDelito" {...register("tipoDelito")}>
+              <select
+                id="tipoDelito"
+                {...register("tipoDelito", {
+                  validate: (value) =>
+                    tipoSeleccionado !== "riesgo" || !!value || "Selecciona el tipo de delito",
+                })}
+              >
                 <option value="">Selecciona un tipo</option>
                 {TIPOS_DELITO.map((tipo) => (
                   <option key={tipo} value={tipo}>{tipo}</option>
                 ))}
               </select>
+              {errors.tipoDelito && <span className="errors">{errors.tipoDelito.message}</span>}
             </div>
 
             {/* ✅ Campo: Cantidad de casos registrados */}
@@ -206,20 +214,39 @@ function AdminZonas() {
                 id="cantidadCasos"
                 type="number"
                 min="0"
+                max="100000"
                 placeholder="Ej: 120"
-                {...register("cantidadCasos")}
+                {...register("cantidadCasos", {
+                  validate: (value) => {
+                    if (tipoSeleccionado !== "riesgo") return true;
+                    if (value === "" || value === undefined || value === null) {
+                      return "Ingresa la cantidad de casos";
+                    }
+                    if (Number(value) < 0) return "No puede ser negativo";
+                    if (Number(value) > 100000) return "Máximo 100000 casos";
+                    return true;
+                  },
+                })}
               />
+              {errors.cantidadCasos && <span className="errors">{errors.cantidadCasos.message}</span>}
             </div>
 
             {/* ✅ Campo: Nivel de riesgo */}
             <div className="campo">
               <label htmlFor="nivelRiesgo">Nivel de riesgo</label>
-              <select id="nivelRiesgo" {...register("nivelRiesgo")}>
+              <select
+                id="nivelRiesgo"
+                {...register("nivelRiesgo", {
+                  validate: (value) =>
+                    tipoSeleccionado !== "riesgo" || !!value || "Selecciona el nivel de riesgo",
+                })}
+              >
                 <option value="">Selecciona un nivel</option>
                 {NIVELES_RIESGO.map((n) => (
                   <option key={n} value={n}>{n.charAt(0).toUpperCase() + n.slice(1)}</option>
                 ))}
               </select>
+              {errors.nivelRiesgo && <span className="errors">{errors.nivelRiesgo.message}</span>}
             </div>
           </fieldset>
 

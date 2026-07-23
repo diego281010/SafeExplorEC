@@ -58,9 +58,6 @@ const Quito = () => {
         />
       </div>
 
-      <button className="btn btn__info">
-        Más información
-      </button>
     </section>
   );
 };

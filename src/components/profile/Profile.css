@@ -141,3 +141,58 @@
     padding: 1.5rem;
   }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .profile {
+  background: #37373D;
+}
+
+html.dark-theme .profile__card {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+html.dark-theme .profile__header h1 {
+  color: #7EC8E3;
+}
+
+html.dark-theme .profile__badge--admin {
+  background: #0B2545;
+}
+
+html.dark-theme .profile__field {
+  border-bottom: 1px solid #2a3542;
+}
+
+html.dark-theme .profile__label {
+  color: #7a93a8;
+}
+
+html.dark-theme .profile__value {
+  color: #c9d6e3;
+}
+
+html.dark-theme .profile__form label {
+  color: #9db4c7;
+}
+
+html.dark-theme .profile__form input {
+  border: 1px solid #2a3542;
+  background: #0d1117;
+  color: #7EC8E3;
+}
+
+html.dark-theme .profile .btn {
+  background: #0B2545;
+  color: #7EC8E3;
+}
+
+html.dark-theme .profile .btn--outline {
+  color: #7EC8E3;
+  border-color: #7EC8E3;
+}
+
+html.dark-theme .profile .errors {
+  color: #ff6b6b;
+}

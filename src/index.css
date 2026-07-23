@@ -108,3 +108,77 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* =========================================================
+   Paleta semántica de la app (paneles, formularios, tarjetas)
+   Claro = colores originales del proyecto (Cambios-Nicolay)
+   Oscuro = colores nuevos, aplicados SOLO cuando se activa
+   el botón de modo oscuro del Header (clase .dark-theme)
+   ========================================================= */
+:root {
+  --brand-bg: #701b23;
+  --brand-bg-hover: #a31d22;
+  --brand-text: #701b23;
+  --brand-accent: #ffae00;
+
+  --page-bg: #f4f1ec;
+  --card-bg: #fff;
+  --card-border: #ddd;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+  --card-shadow-strong: rgba(0, 0, 0, 0.35);
+
+  --input-bg: #f2f2f2;
+  --hero-gradient: linear-gradient(180deg, #100900 0%, #3d2600 100%);
+
+  --text-strong: #222;
+  --text-body: #444;
+  --text-muted: #555;
+  --text-soft: #888;
+  --text-faint: #666;
+}
+
+/* ===== Modo oscuro activado desde el botón del Header ===== */
+html.dark-theme {
+  --brand-bg: #0b2545;
+  --brand-bg-hover: #163b6b;
+  --brand-text: #7ec8e3;
+  --brand-accent: #ffae00;
+
+  --page-bg: #37373D;
+  --card-bg: #161b22;
+  --card-border: #2a3542;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --card-shadow-strong: rgba(0, 0, 0, 0.5);
+
+  --input-bg: #161b22;
+  --hero-gradient: linear-gradient(180deg, #05070a 0%, #10151d 100%);
+
+  --text-strong: #7ec8e3;
+  --text-body: #9db4c7;
+  --text-muted: #9db4c7;
+  --text-soft: #7a93a8;
+  --text-faint: #5b7185;
+}
+
+html.dark-theme body {
+  background: var(--bg);
+}
+
+html.dark-theme .about,
+html.dark-theme .footer__col p,
+html.dark-theme .footer__col a,
+html.dark-theme .footer__brand h3 {
+  color: var(--text);
+}
+
+html.dark-theme footer {
+  background-color: #101217 !important;
+}
+
+html.dark-theme .about {
+  background-color: #37373D;
+}
+
+html.dark-theme .quito {
+  filter: brightness(0.85);
+}

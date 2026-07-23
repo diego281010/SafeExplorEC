@@ -279,3 +279,49 @@
     font-size: 1.4rem;
   }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .hero__card h2,
+html.dark-theme .beneficios__titulo span,
+html.dark-theme .beneficio h3,
+html.dark-theme .hero__content h2 {
+  color: #163B6B;
+}
+
+/* Zone Preview: el fondo y las tarjetas se adaptan al modo oscuro,
+   pero se conserva el color original del título y del botón
+   ("Ver todas las zonas") tal como estaban en Cambios-Nicolay. */
+html.dark-theme .zone-preview-section {
+  background: #37373D;
+}
+
+html.dark-theme .zone-preview-sub {
+  color: #9db4c7;
+}
+
+html.dark-theme .zone-preview-card {
+  background: #161b22;
+  border: 1px solid #2a3542;
+  box-shadow: none;
+}
+
+html.dark-theme .zone-preview-card h3 {
+  color: #e8f1fa;
+}
+
+html.dark-theme .zone-preview-dir {
+  color: #38BDF8;
+}
+
+html.dark-theme .zone-preview-desc {
+  color: #9db4c7;
+}
+
+html.dark-theme .zone-preview-section h2 {
+  color: #ffffff; 
+}
+
+html.dark-theme .btn {
+  background: linear-gradient(135deg, #ffb500, #ff9e00);
+  color: #111; 
+}

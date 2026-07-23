@@ -371,3 +371,12 @@
         font-size: 2.8rem;
     }
 }
+
+/* ===== MODO OSCURO ===== */
+html.dark-theme .about__image {
+    background: linear-gradient(135deg, #0B2545 0%, #163B6B 55%, #FFAE00 130%);
+}
+
+html.dark-theme .about__card-icon svg {
+    color: #7EC8E3;
+}

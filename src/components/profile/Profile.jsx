@@ -112,14 +112,25 @@ function Profile() {
           <form className="profile__form" onSubmit={handleSubmit(handleUpdate)}>
             <div className="campo">
               <label>Nombre</label>
-              <input type="text" {...register("nombre", { required: "El nombre es requerido" })} />
+              <input
+                type="text"
+                {...register("nombre", {
+                  required: "El nombre es requerido",
+                  maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                })}
+              />
               {errors.nombre && <span className="errors">{errors.nombre.message}</span>}
             </div>
 
-
             <div className="campo">
               <label>Apellido</label>
-              <input type="text" {...register("apellido")} />
+              <input
+                type="text"
+                {...register("apellido", {
+                  maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                })}
+              />
+              {errors.apellido && <span className="errors">{errors.apellido.message}</span>}
             </div>
 
             <div className="campo">
