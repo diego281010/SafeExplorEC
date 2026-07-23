@@ -131,3 +131,65 @@
   margin-bottom: 15px;        /* Espacio debajo del icono */
   display: block;             /* Necesario para que el margen y tamaño funcionen bien */
 }
+
+/* === MOBILE (hasta 767px) === */
+@media (max-width: 767px) {
+  .hero {
+    padding: 30px 16px;
+    min-height: 90vh;
+  }
+
+  .hero__card {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px;
+    border-radius: 30px;
+  }
+
+  .hero__card h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .hero__card p {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+  }
+
+  .beneficios__titulo span {
+    font-size: 1.3rem;
+    padding: 10px 30px;
+  }
+
+  .beneficio {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    min-height: 140px;
+  }
+
+  .beneficio h3 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* === TABLET (768px - 1023px) === */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__card {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .hero__card h2 {
+    font-size: 3rem;
+  }
+
+  .hero__card p {
+    font-size: 1.4rem;
+  }
+}

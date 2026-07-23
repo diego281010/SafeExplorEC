@@ -130,8 +130,9 @@
     cursor: pointer;
   }
 
-  .register-card {
+.register-card {
     width: 350px;
+    max-width: 100%;
     background: white;
     border-radius: 20px;
     padding: 35px 25px;
@@ -141,4 +142,29 @@
     align-items: center;
   
     box-shadow: 0 10px 20px rgba(0,0,0,.35);
+  }
+
+  @media (max-width: 600px) {
+    .register-card {
+      width: 100%;
+      max-width: 360px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .login-title {
+      font-size: 1.35rem;
+    }
+  
+    .btn-login {
+      width: 100%;
+      max-width: 280px;
+    }
+  
+    .register-link {
+      text-align: center;
+      width: 100%;
+    }
   }

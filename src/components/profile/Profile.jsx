@@ -123,12 +123,32 @@ function Profile() {
 
             <div className="campo">
               <label>Teléfono</label>
-              <input type="tel" {...register("telefono")} />
+              <input
+                type="tel"
+                placeholder="0999999999"
+                {...register("telefono", {
+                  pattern: {
+                    value: /^09\d{8}$/,
+                    message: "Ingresa un número válido (09XXXXXXXX)"
+                  }
+                })}
+              />
+              {errors.telefono && <span className="errors">{errors.telefono.message}</span>}
             </div>
 
             <div className="campo">
               <label>Cédula</label>
-              <input type="text" {...register("cedula")} />
+              <input
+                type="text"
+                placeholder="1234567890"
+                {...register("cedula", {
+                  pattern: {
+                    value: /^\d{10}$/,
+                    message: "La cédula debe tener 10 dígitos"
+                  }
+                })}
+              />
+              {errors.cedula && <span className="errors">{errors.cedula.message}</span>}
             </div>
 
             <div className="profile__actions">

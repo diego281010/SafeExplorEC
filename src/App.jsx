@@ -26,7 +26,14 @@ function App() {
             {/* Rutas públicas */}
             <Route path="/" element={<Landing />} />
             <Route path="/nosotros" element={<About />} />
-            <Route path="/mapas" element={<Mapas />} />
+            <Route
+              path="/mapas"
+              element={
+                <ProtectedRoute allowedRoles={["admin", "turista"]}>
+                  <Mapas />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/acceso-denegado" element={<AccessDenied />} />

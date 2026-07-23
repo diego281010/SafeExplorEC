@@ -1,4 +1,4 @@
-import { FaSearch, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -104,11 +104,6 @@ function Header() {
             </>
           )}
         </nav>
-
-        <div className="search">
-          <FaSearch />
-          <input type="text" placeholder="Buscar..." />
-        </div>
 
         <div className="account">
           <FaUser />
