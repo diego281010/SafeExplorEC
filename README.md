@@ -93,6 +93,9 @@ npm run dev
 
 ![Nosotros](src/.docs/images/nosotros.png)
 
+### Zonas
+
+![Zonas](src/.docs/images/zonas.png)
 ---
 
 ## Integrantes
