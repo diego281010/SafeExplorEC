@@ -48,6 +48,20 @@ html.dark-theme {
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px;
+    position: relative;
+}
+
+/* Botón hamburguesa - oculto en desktop */
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--colorTres);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 6px;
+    line-height: 1;
+    z-index: 1001;
 }
 
 /* Contenedor derecho */
@@ -181,22 +195,62 @@ html.dark-theme {
 }
 
 /* ========================= */
-/* MOBILE */
+/* MOBILE + TABLET (menú hamburguesa) */
 /* ========================= */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     .header {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+
+    .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Panel desplegable, oculto por defecto */
+    .header__right {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 15px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+    }
+
+    .header__right--open {
+        max-height: 80vh;
+        opacity: 1;
+        margin-top: 15px;
+        overflow-y: auto;
+    }
+
+    .nav {
+        margin: 0;
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        padding: 15px;
     }
 
-    .header__right {
-        flex-direction: column;
-        width: 100%;
-        gap: 15px;
+    .nav a {
+        font-size: 1rem;
     }
 
+    .account {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 767px) {
     .logo {
         justify-content: center;
     }
@@ -209,35 +263,12 @@ html.dark-theme {
     .text-roll-ec {
         font-size: 2rem;
     }
-
-    .nav {
-        margin: 0;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .nav a {
-        font-size: 0.95rem;
-    }
-
-    .account {
-        justify-content: center;
-    }
 }
 
 /* ========================= */
 /* TABLET */
 /* ========================= */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .header {
-        padding: 15px 20px;
-    }
-
-    .header__right {
-        gap: 15px;
-    }
-
     .logo img {
         width: 50px;
         height: 50px;
@@ -250,15 +281,6 @@ html.dark-theme {
     .text-roll-logo,
     .text-roll-ec {
         font-size: 2rem;
-    }
-
-    .nav {
-        gap: 15px;
-        margin-right: 10px;
-    }
-
-    .nav a {
-        font-size: 0.95rem;
     }
 
     .search input {
