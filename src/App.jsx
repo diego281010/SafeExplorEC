@@ -1,9 +1,11 @@
 import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+
 import Header from "./components/header/Header.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import Landing from "./pages/Landing";
+
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
@@ -17,15 +19,20 @@ const AdminZonasPage = lazy(() => import("./pages/AdminZonasPage.jsx"));
 const Quejas = lazy(() => import("./pages/Quejas.jsx"));
 const AccessDenied = lazy(() => import("./pages/AccessDenied.jsx"));
 const Perfil = lazy(() => import("./pages/Perfil.jsx"));
+const Estadisticas = lazy(() => import("./pages/Estadisticas.jsx"));
 
 function App() {
-  // 👇 Carga del ChatBot de Zapier
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://cdn.zapier.com/static/chatbot/embed.js";
     script.async = true;
-    script.dataset.zapierChatbotId = "cmryf94cy000gnncw6sqko1s7"; // tu ID real
+    script.dataset.zapierChatbotId = "cmryf94cy000gnncw6sqko1s7";
+
     document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
@@ -33,9 +40,11 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Header />
+
           <main>
-            <Suspense fallback={<p className="route-loader">Cargando...</p>}>
+            <Suspense fallback={<div>Cargando...</div>}>
               <Routes>
+
                 {/* Rutas públicas */}
                 <Route path="/" element={<Landing />} />
                 <Route path="/nosotros" element={<About />} />
@@ -44,6 +53,7 @@ function App() {
                 <Route path="/acceso-denegado" element={<AccessDenied />} />
                 <Route path="/mapas" element={<Mapas />} />
                 <Route path="/zonas" element={<Zonas />} />
+                <Route path="/estadisticas" element={<Estadisticas />} />
 
                 {/* Rutas protegidas */}
                 <Route
@@ -54,6 +64,7 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+
                 <Route
                   path="/quejas"
                   element={
@@ -72,9 +83,11 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+
               </Routes>
             </Suspense>
           </main>
+
           <Footer />
         </BrowserRouter>
       </AuthProvider>
