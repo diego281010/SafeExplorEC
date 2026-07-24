@@ -1,9 +1,11 @@
 import './Footer.css';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Footer = () => {
     const anioActual = new Date().getFullYear();
+    const { user } = useAuth();
 
     return (
         <footer>
@@ -32,9 +34,14 @@ const Footer = () => {
                 <div className="footer__col">
                     <h4>Cuenta</h4>
                     <nav className="footer__links">
-                        <Link to="/login">Iniciar sesión</Link>
-                        <Link to="/register">Registrarse</Link>
-                        <Link to="/perfil">Mi Perfil</Link>
+                        {user ? (
+                            <Link to="/perfil">Mi Perfil</Link>
+                        ) : (
+                            <>
+                                <Link to="/login">Iniciar sesión</Link>
+                                <Link to="/register">Registrarse</Link>
+                            </>
+                        )}
                     </nav>
                 </div>
 
