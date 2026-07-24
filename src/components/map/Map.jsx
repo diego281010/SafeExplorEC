@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { dbFirebase } from "../../firebase";
 import "./Map.css";
