@@ -4,6 +4,8 @@
 
 Plataforma web para consultar zonas turísticas y zonas de riesgo en Quito, Ecuador.
 
+Versión: 1.0.0
+
 ## Aplicación
 
 La aplicación se encuentra publicada en:
