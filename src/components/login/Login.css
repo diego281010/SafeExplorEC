@@ -301,3 +301,51 @@ html.dark-theme .register-link {
 html.dark-theme .register-link span {
   color: #38BDF8;
 }
+
+/* ===== Login social (Google) ===== */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 16px 0;
+  color: #888;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.btn-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  color: #444;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-google:hover {
+  background: #f7f7f7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.btn-google svg {
+  color: #ea4335;
+  font-size: 1.05rem;
+}

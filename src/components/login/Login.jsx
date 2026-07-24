@@ -1,10 +1,12 @@
 // src/components/login/Login.jsx
 import "./Login.css";
-import { FaUser, FaLock, FaShieldAlt } from "react-icons/fa";
+import { FaUser, FaLock, FaShieldAlt, FaGoogle } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { authFirebase } from "../../firebase";
+import { loginConGoogle } from "../../utils/socialAuth";
 
 function Login() {
 
@@ -18,10 +20,24 @@ function Login() {
     const { email, password } = data
     try {
       await signInWithEmailAndPassword(authFirebase, email, password)
+      toast.success("¡Bienvenido de nuevo! 🎉")
       navigate('/perfil')
     } catch (error) {
       console.log(error)
-      alert(error.message)
+      toast.error(error.message || "No se pudo iniciar sesión")
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      await loginConGoogle();
+      toast.success("¡Bienvenido! 🎉")
+      navigate('/perfil')
+    } catch (error) {
+      console.log(error);
+      // El usuario cerró el popup, no mostramos error molesto
+      if (error.code === "auth/popup-closed-by-user") return;
+      toast.error(error.message || "No se pudo iniciar sesión con Google");
     }
   }
 
@@ -85,7 +101,19 @@ function Login() {
 
           </form>
 
-          <p className="register-link" data-aos="fade-up" data-aos-delay="400">
+          <div className="divider" data-aos="fade-up" data-aos-delay="380">o</div>
+
+          <button
+            type="button"
+            className="btn-google"
+            onClick={handleGoogleLogin}
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <FaGoogle /> Continuar con Google
+          </button>
+
+          <p className="register-link" data-aos="fade-up" data-aos-delay="450">
             ¿No tienes cuenta?
             <NavLink to="/register"><span>Regístrate</span></NavLink>
           </p>

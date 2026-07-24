@@ -1,12 +1,13 @@
 // src/components/register/Register.jsx
 import "./Register.css";
-import { FaUser, FaEnvelope, FaLock, FaShieldAlt, FaUserCog } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaShieldAlt, FaUserCog, FaGoogle } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { authFirebase, dbFirebase } from "../../firebase";
 import { collection, doc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
+import { loginConGoogle } from "../../utils/socialAuth";
 import {
   findDuplicateUser,
   validateEmail,
@@ -109,6 +110,18 @@ function Register() {
     toast.warn("Revisa los campos marcados en el formulario ⚠️");
   };
 
+  const handleGoogleRegister = async () => {
+    try {
+      await loginConGoogle();
+      toast.success("¡Cuenta creada con Google! 🎉");
+      navigate("/perfil");
+    } catch (error) {
+      console.log(error);
+      if (error.code === "auth/popup-closed-by-user") return;
+      toast.error(error.message || "No se pudo registrar con Google");
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="auth-layout" data-aos="fade-up" data-aos-duration="800">
@@ -204,6 +217,18 @@ function Register() {
             </button>
 
           </form>
+
+          <div className="divider" data-aos="fade-up" data-aos-delay="470">o</div>
+
+          <button
+            type="button"
+            className="btn-google"
+            onClick={handleGoogleRegister}
+            data-aos="zoom-in"
+            data-aos-delay="480"
+          >
+            <FaGoogle /> Registrarme con Google
+          </button>
 
           <p className="register-link" data-aos="fade-up" data-aos-delay="500">
             ¿Ya tienes cuenta? <NavLink to="/login"><span>Inicia sesión</span></NavLink>
