@@ -15,7 +15,7 @@ function ZonePreview() {
   useEffect(function () {
     async function cargar() {
       try {
-        var q = query(collection(dbFirebase, "zonas"), orderBy("createdAt", "desc"), limit(6));
+        var q = query(collection(dbFirebase, "zonas"), orderBy("createdAt", "desc"), limit(3));
         var snap = await getDocs(q);
         setZonas(snap.docs.map(function (d) { return { id: d.id, ...d.data() }; }));
       } catch (err) {
@@ -46,6 +46,14 @@ function ZonePreview() {
         {zonas.map(function (zona) {
           return (
             <div key={zona.id} className={"zone-preview-card " + (zona.tipo === "riesgo" ? "riesgo" : "turistica")}>
+              {zona.imagenUrl ? (
+                <img
+                  src={zona.imagenUrl}
+                  alt={zona.nombre}
+                  className="zone-preview-img"
+                  onError={function (e) { e.currentTarget.style.display = "none"; }}
+                />
+              ) : null}
               <div className="zone-preview-badge">
                 {zona.tipo === "riesgo" ? "Riesgo" : "Turistica"}
               </div>

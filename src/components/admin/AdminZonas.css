@@ -73,6 +73,15 @@
   border-color: #ffae00;
 }
 
+.admin-zonas__preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+}
+
 .admin-zonas__criminal {
   border: 1px dashed #ffae00;
   border-radius: 10px;
@@ -152,6 +161,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.zona-card__img {
+  width: calc(100% + 2.4rem);
+  margin: -1.1rem -1.2rem 0.3rem;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
 }
 
 .zona-card__top {
@@ -290,6 +307,10 @@ html.dark-theme .admin-zonas__form textarea {
   border: 1px solid #2a3542;
   background: #0d1117;
   color: #7EC8E3;
+}
+
+html.dark-theme .admin-zonas__preview {
+  border: 1px solid #2a3542;
 }
 
 html.dark-theme .admin-zonas .btn {

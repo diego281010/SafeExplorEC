@@ -67,6 +67,15 @@ function ZonasList() {
       <div className="zonas-list__grid">
         {zonasFiltradas.map((zona) => (
           <div className="zona-item" key={zona.id}>
+            {zona.imagenUrl && (
+              <img
+                src={zona.imagenUrl}
+                alt={zona.nombre}
+                className="zona-item__img"
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
+              />
+            )}
+
             <div className="zona-item__top">
               <h3>{zona.nombre}</h3>
               <span className={`zona-item__tag zona-item__tag--${zona.tipo}`}>

@@ -25,16 +25,95 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
 }
 
+/* ========================= */
+/* LAYOUT: panel de imagen + formulario */
+/* ========================= */
+
+.auth-layout {
+  display: flex;
+  align-items: stretch;
+  width: min(94%, 1180px);
+  min-height: min(80vh, 680px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.auth-image {
+  flex: 1 1 45%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2.4rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #701B23 0%, #a31d22 55%, #FFAE00 130%);
+}
+
+.auth-image__overlay {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+.auth-image__icon {
+  font-size: 4rem;
+  color: #FFE58E;
+  margin-bottom: 1.2rem;
+  display: block;
+  animation: auth-image-float 4s ease-in-out infinite;
+}
+
+@keyframes auth-image-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.auth-image__overlay h2 {
+  font-size: 2.1rem;
+  margin: 0 0 0.8rem;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.auth-image__overlay p {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* Dentro del layout con imagen, la tarjeta pierde su propio
+   radio/sombra porque ahora los tiene el contenedor .auth-layout */
+.auth-layout .login-card,
+.auth-layout .register-card {
+  flex: 1 1 55%;
+  width: auto;
+  max-width: 560px;
+  padding: 48px 56px;
+  justify-content: center;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .login-title {
   width: 100%;
   background: #e14646;
   color: #2b1b1b;
   text-align: center;
-  padding: 12px;
+  padding: 14px;
   border-radius: 30px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .formulario {
@@ -46,14 +125,14 @@
   align-items: center;
   gap: 14px;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   background: #f2f2f2;
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 13px 16px;
 }
 
 .icon {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #ffae00;
   flex-shrink: 0;
 }
@@ -63,7 +142,7 @@
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 1rem;
+  font-size: 1.05rem;
   outline: none;
   color: #000;
 }
@@ -73,13 +152,13 @@
 }
 
 .btn-login {
-  margin-top: 8px;
+  margin-top: 10px;
   background: #ffae00;
   color: #222;
   border: none;
   border-radius: 10px;
-  padding: 12px 28px;
-  font-size: 1.05rem;
+  padding: 14px 28px;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: 0.3s;
   width: 100%;
@@ -117,6 +196,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .auth-layout {
+    flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .auth-image {
+    min-height: 150px;
+    flex: none;
+  }
+
+  .auth-layout .login-card,
+  .auth-layout .register-card {
+    border-radius: 0 0 20px 20px;
   }
 
   .login-card,
@@ -165,6 +260,19 @@ html.dark-theme .register-card {
   background: #0d1117;
   border: 1px solid #1f2733;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-theme .auth-layout {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+html.dark-theme .auth-image {
+  background: linear-gradient(135deg, #0B2545 0%, #163B6B 55%, #FFAE00 130%);
+}
+
+html.dark-theme .auth-layout .login-card,
+html.dark-theme .auth-layout .register-card {
+  border-left: none;
 }
 
 html.dark-theme .login-title {
