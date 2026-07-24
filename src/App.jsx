@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -22,19 +22,8 @@ const Perfil = lazy(() => import("./pages/Perfil.jsx"));
 const Estadisticas = lazy(() => import("./pages/Estadisticas.jsx"));
 
 function App() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.zapier.com/static/chatbot/embed.js";
-    script.async = true;
-    script.dataset.zapierChatbotId = "cmryf94cy000gnncw6sqko1s7";
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
+  // El chatbot de Zapier se carga una sola vez desde index.html
+  // (antes también se inyectaba aquí, causando que se cargara duplicado).
   return (
     <ThemeProvider>
       <AuthProvider>

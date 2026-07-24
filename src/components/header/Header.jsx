@@ -1,4 +1,5 @@
-import { FaUser, FaMoon, FaSun } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaUser, FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -64,6 +65,20 @@ function Header() {
   const navigate = useNavigate();
   const { user, userData, isAdmin } = useAuth();
   const { isDark, toggleTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Cierra el menú al cambiar de ruta
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Bloquea el scroll del body mientras el menú está abierto (mobile/tablet)
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const handleLogout = async () => {
     try {
@@ -73,6 +88,8 @@ function Header() {
       console.log(error);
     }
   };
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className="header">
@@ -87,22 +104,37 @@ function Header() {
         </h1>
       </div>
 
+      {/* Botón hamburguesa - visible solo en mobile y tablet */}
+      <button
+        type="button"
+        className="hamburger"
+        onClick={() => setMenuOpen((prev) => !prev)}
+        aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+        aria-expanded={menuOpen}
+        aria-controls="header-right-menu"
+      >
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
       {/* Lado derecho - SIN ANIMACIÓN */}
-      <div className="header__right">
+      <div
+        id="header-right-menu"
+        className={`header__right ${menuOpen ? "header__right--open" : ""}`}
+      >
         <nav className="nav">
-          <Link to="/" className={pathname === "/" ? "activo" : ""}>Inicio</Link>
-          <Link to="/nosotros" className={pathname === "/nosotros" ? "activo" : ""}>Acerca de Nosotros</Link>
-          <Link to="/mapas" className={pathname === "/mapas" ? "activo" : ""}>Mapa Interactivo</Link>
+          <Link to="/" className={pathname === "/" ? "activo" : ""} onClick={closeMenu}>Inicio</Link>
+          <Link to="/nosotros" className={pathname === "/nosotros" ? "activo" : ""} onClick={closeMenu}>Acerca de Nosotros</Link>
+          <Link to="/mapas" className={pathname === "/mapas" ? "activo" : ""} onClick={closeMenu}>Mapa Interactivo</Link>
           {/* Zonas es pública: visible con o sin sesión iniciada */}
-          <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""}>Zonas</Link>
+          <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""} onClick={closeMenu}>Zonas</Link>
           {/* Estadísticas es pública: visible con o sin sesión iniciada */}
-          <Link to="/estadisticas" className={pathname === "/estadisticas" ? "activo" : ""}>Estadísticas</Link>
+          <Link to="/estadisticas" className={pathname === "/estadisticas" ? "activo" : ""} onClick={closeMenu}>Estadísticas</Link>
 
           {user && (
             <>
-              <Link to="/quejas" className={pathname === "/quejas" ? "activo" : ""}>Quejas y Sugerencias</Link>
+              <Link to="/quejas" className={pathname === "/quejas" ? "activo" : ""} onClick={closeMenu}>Quejas y Sugerencias</Link>
               {isAdmin && (
-                <Link to="/admin/zonas" className={pathname === "/admin/zonas" ? "activo" : ""}>
+                <Link to="/admin/zonas" className={pathname === "/admin/zonas" ? "activo" : ""} onClick={closeMenu}>
                   Panel Admin
                 </Link>
               )}
@@ -123,11 +155,11 @@ function Header() {
           <FaUser />
           {user ? (
             <>
-              <Link to="/perfil">{userData?.nombre || "Mi Perfil"}</Link>
+              <Link to="/perfil" onClick={closeMenu}>{userData?.nombre || "Mi Perfil"}</Link>
               <button className="header__logout" onClick={handleLogout}>Salir</button>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" onClick={closeMenu}>Login</Link>
           )}
         </div>
       </div>
