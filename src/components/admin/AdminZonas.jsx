@@ -1,6 +1,7 @@
 // src/components/admin/AdminZonas.jsx
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import {
   addDoc,
   collection,
@@ -69,18 +70,20 @@ function AdminZonas() {
       if (editId) {
         await updateDoc(doc(dbFirebase, "zonas", editId), payload);
         setEditId(null);
+        toast.success("Zona actualizada correctamente ✅");
       } else {
         await addDoc(collection(dbFirebase, "zonas"), {
           ...payload,
           createdBy: user?.uid || null,
           createdAt: serverTimestamp(),
         });
+        toast.success("Zona registrada correctamente ✅");
       }
       reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
       cargarZonas();
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      toast.error(error.message || "Ocurrió un error al guardar la zona");
     }
   };
 
@@ -102,6 +105,7 @@ function AdminZonas() {
   const handleCancelarEdicion = () => {
     setEditId(null);
     reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
+    toast.info("Edición cancelada");
   };
 
   const handleEliminar = async (id) => {
@@ -110,10 +114,15 @@ function AdminZonas() {
     try {
       await deleteDoc(doc(dbFirebase, "zonas", id));
       cargarZonas();
+      toast.success("Zona eliminada correctamente 🗑️");
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      toast.error(error.message || "Ocurrió un error al eliminar la zona");
     }
+  };
+
+  const onFormError = () => {
+    toast.warn("Revisa los campos marcados en el formulario ⚠️");
   };
 
   const zonasFiltradas = zonas.filter((z) =>
@@ -129,7 +138,7 @@ function AdminZonas() {
       </p>
 
       <div className="admin-zonas__layout">
-        <form className="admin-zonas__form" onSubmit={handleSubmit(handleGuardar)}>
+        <form className="admin-zonas__form" onSubmit={handleSubmit(handleGuardar, onFormError)}>
           <h3>{editId ? "Editar zona" : "Registrar nueva zona"}</h3>
 
           {/* ✅ Campo: Tipo de zona */}
