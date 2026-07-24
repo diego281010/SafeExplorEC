@@ -3,7 +3,7 @@
   min-height: 100vh;
   background-image:
   linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-  url('https://imagenes.primicias.ec/files/main_image_832_468/uploads/2024/05/26/665353a787575.jpeg');
+  url('images/hero.webp');
   background-size: cover;
   background-position: center;
   display: flex;
