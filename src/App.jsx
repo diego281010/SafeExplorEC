@@ -1,26 +1,33 @@
-import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { lazy, Suspense, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 import Header from "./components/header/Header.jsx";
-import Footer from './components/footer/Footer.jsx';
-import Landing from './pages/Landing';
-import { AuthProvider } from './context/AuthContext.jsx';
-import { ThemeProvider, useTheme } from './context/ThemeContext.jsx';
-import ProtectedRoute from './components/routes/ProtectedRoute.jsx';
+import Footer from "./components/footer/Footer.jsx";
+import Landing from "./pages/Landing";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
+import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
 
-const About = lazy(() => import('./pages/About.jsx'));
-const Mapas = lazy(() => import('./pages/Mapas.jsx'))
-const Login = lazy(() => import('./components/login/Login.jsx'))
-const Register = lazy(() => import('./components/register/Register.jsx'))
-const Zonas = lazy(() => import('./pages/Zonas.jsx'))
-const AdminZonasPage = lazy(() => import('./pages/AdminZonasPage.jsx'))
-const Quejas = lazy(() => import('./pages/Quejas.jsx'))
-const AccessDenied = lazy(() => import('./pages/AccessDenied.jsx'))
-const Perfil = lazy(() => import('./pages/Perfil.jsx'))
-
-import ChatBot from './components/chatbot/ChatBot.jsx';
+const About = lazy(() => import("./pages/About.jsx"));
+const Mapas = lazy(() => import("./pages/Mapas.jsx"));
+const Login = lazy(() => import("./components/login/Login.jsx"));
+const Register = lazy(() => import("./components/register/Register.jsx"));
+const Zonas = lazy(() => import("./pages/Zonas.jsx"));
+const AdminZonasPage = lazy(() => import("./pages/AdminZonasPage.jsx"));
+const Quejas = lazy(() => import("./pages/Quejas.jsx"));
+const AccessDenied = lazy(() => import("./pages/AccessDenied.jsx"));
+const Perfil = lazy(() => import("./pages/Perfil.jsx"));
 
 function App() {
+  // 👇 Carga del ChatBot de Zapier
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.zapier.com/static/chatbot/embed.js";
+    script.async = true;
+    script.dataset.zapierChatbotId = "cmryf94cy000gnncw6sqko1s7"; // tu ID real
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -29,8 +36,7 @@ function App() {
           <main>
             <Suspense fallback={<p className="route-loader">Cargando...</p>}>
               <Routes>
-                {/* Rutas públicas: Inicio, Nosotros, Mapa Interactivo y Zonas
-                son visibles sin necesidad de iniciar sesión. */}
+                {/* Rutas públicas */}
                 <Route path="/" element={<Landing />} />
                 <Route path="/nosotros" element={<About />} />
                 <Route path="/login" element={<Login />} />
@@ -39,7 +45,7 @@ function App() {
                 <Route path="/mapas" element={<Mapas />} />
                 <Route path="/zonas" element={<Zonas />} />
 
-                {/* Rutas protegidas: cualquier usuario autenticado (admin o turista) */}
+                {/* Rutas protegidas */}
                 <Route
                   path="/perfil"
                   element={
@@ -57,7 +63,7 @@ function App() {
                   }
                 />
 
-                {/* Ruta protegida: solo administrador */}
+                {/* Solo administrador */}
                 <Route
                   path="/admin/zonas"
                   element={
@@ -69,7 +75,6 @@ function App() {
               </Routes>
             </Suspense>
           </main>
-          <ChatBot />
           <Footer />
         </BrowserRouter>
       </AuthProvider>
