@@ -380,3 +380,43 @@ html.dark-theme .about__image {
 html.dark-theme .about__card-icon svg {
     color: #7EC8E3;
 }
+
+/* Caja exterior (antes beige #CCB392) */
+html.dark-theme .about__outer {
+    background-color: var(--card-bg);
+}
+
+/* Pastilla "Acerca de nosotros" (antes amarillo #FFE58E) */
+html.dark-theme .about__inner {
+    background-color: var(--brand-bg-hover);
+}
+
+html.dark-theme .about__inner h2 {
+    color: #fff;
+}
+
+html.dark-theme .about__tagline,
+html.dark-theme .about__description {
+    color: var(--text-body);
+}
+
+/* Caja contenedora grande (antes naranja #E6AD60) */
+html.dark-theme .about__cards-wrapper {
+    background-color: #2a2a30;
+}
+
+/* Tarjetas individuales (antes amarillo #FFE58E) */
+html.dark-theme .about__card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: none;
+}
+
+html.dark-theme .about__card h3 {
+    color: var(--text-strong);
+}
+
+html.dark-theme .about__card p,
+html.dark-theme .about__card li {
+    color: var(--text-body);
+}

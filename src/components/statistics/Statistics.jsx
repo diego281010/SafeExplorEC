@@ -49,13 +49,11 @@ const Quito = () => {
             </TabPanel>
           </Tabs>
 
+          <a href="#" className="btn quito__more-btn">Más Información</a>
+          
+
         </div>
 
-        <img
-          src="./src/images/section_quito.jpg"
-          alt="quito"
-          className="quito-img"
-        />
       </div>
 
     </section>

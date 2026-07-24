@@ -27,6 +27,7 @@ function AdminZonas() {
     defaultValues: { tipo: "riesgo" },
   });
   const tipoSeleccionado = watch("tipo");
+  const imagenUrlValue = watch("imagenUrl");
 
   const [zonas, setZonas] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -57,6 +58,7 @@ function AdminZonas() {
       tipo: data.tipo,
       direccion: data.direccion,
       descripcion: data.descripcion || "",
+      imagenUrl: data.imagenUrl ? data.imagenUrl.trim() : "",
       nivelRiesgo: data.tipo === "riesgo" ? data.nivelRiesgo : null,
       tipoDelito: data.tipo === "riesgo" ? data.tipoDelito : null,
       cantidadCasos: data.tipo === "riesgo" && data.cantidadCasos ? Number(data.cantidadCasos) : null,
@@ -74,7 +76,7 @@ function AdminZonas() {
           createdAt: serverTimestamp(),
         });
       }
-      reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
+      reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
       cargarZonas();
     } catch (error) {
       console.log(error);
@@ -89,6 +91,7 @@ function AdminZonas() {
       tipo: zona.tipo,
       direccion: zona.direccion,
       descripcion: zona.descripcion || "",
+      imagenUrl: zona.imagenUrl || "",
       nivelRiesgo: zona.nivelRiesgo || "",
       tipoDelito: zona.tipoDelito || "",
       cantidadCasos: zona.cantidadCasos ?? "",
@@ -98,7 +101,7 @@ function AdminZonas() {
 
   const handleCancelarEdicion = () => {
     setEditId(null);
-    reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
+    reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
   };
 
   const handleEliminar = async (id) => {
@@ -183,6 +186,32 @@ function AdminZonas() {
               })}
             />
             {errors.descripcion && <span className="errors">{errors.descripcion.message}</span>}
+          </div>
+
+          {/* ✅ Campo: Imagen (URL) */}
+          <div className="campo">
+            <label htmlFor="imagenUrl">Imagen (URL)</label>
+            <input
+              id="imagenUrl"
+              type="url"
+              placeholder="https://ejemplo.com/foto-zona.jpg"
+              {...register("imagenUrl", {
+                pattern: {
+                  value: /^https?:\/\/.+/i,
+                  message: "Ingresa una URL válida (debe iniciar con http:// o https://)",
+                },
+              })}
+            />
+            {errors.imagenUrl && <span className="errors">{errors.imagenUrl.message}</span>}
+            {imagenUrlValue && !errors.imagenUrl && (
+              <img
+                src={imagenUrlValue}
+                alt="Vista previa de la zona"
+                className="admin-zonas__preview"
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
+                onLoad={(e) => { e.currentTarget.style.display = "block"; }}
+              />
+            )}
           </div>
 
           {/* ✅ Fieldset: Detalles criminales */}
@@ -282,6 +311,15 @@ function AdminZonas() {
           <div className="admin-zonas__cards">
             {zonasFiltradas.map((zona) => (
               <div className="zona-card" key={zona.id}>
+                {zona.imagenUrl && (
+                  <img
+                    src={zona.imagenUrl}
+                    alt={zona.nombre}
+                    className="zona-card__img"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                )}
+
                 <div className="zona-card__top">
                   <h4>{zona.nombre}</h4>
                   <span className={`zona-card__tag zona-card__tag--${zona.tipo}`}>

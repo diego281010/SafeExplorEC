@@ -164,6 +164,14 @@
   gap: 0.4rem;
 }
 
+.zone-preview-img {
+  width: calc(100% + 2.4rem);
+  margin: -1.2rem -1.2rem 0.2rem;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 14px 14px 0 0;
+}
+
 .zone-preview-card.riesgo {
   border-left-color: #d9534f;
 }
@@ -281,11 +289,29 @@
 }
 
 /* ===== MODO OSCURO ===== */
+html.dark-theme .hero__card {
+  background: rgba(13, 17, 23, 0.92);
+  border: 1px solid var(--card-border);
+}
+
 html.dark-theme .hero__card h2,
-html.dark-theme .beneficios__titulo span,
-html.dark-theme .beneficio h3,
 html.dark-theme .hero__content h2 {
-  color: #163B6B;
+  color: var(--text-strong);
+}
+
+/* Bloques beige de "Beneficios": se oscurecen en vez de mantenerse claros */
+html.dark-theme .beneficios__titulo span {
+  background: var(--card-bg);
+  color: var(--brand-accent);
+}
+
+html.dark-theme .beneficio {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+html.dark-theme .beneficio h3 {
+  color: var(--text-strong);
 }
 
 /* Zone Preview: el fondo y las tarjetas se adaptan al modo oscuro,
