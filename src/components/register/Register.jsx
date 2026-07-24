@@ -4,6 +4,7 @@ import { FaUser, FaEnvelope, FaLock, FaShieldAlt, FaUserCog } from "react-icons/
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { authFirebase, dbFirebase } from "../../firebase";
 import { collection, doc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
 import {
@@ -38,16 +39,19 @@ function Register() {
 
     if (!validateEmail(normalizedEmail)) {
       setError("email", { type: "custom", message: "Ingresa un email válido" });
+      toast.error("Ingresa un email válido");
       return;
     }
 
     if (!validateUsername(usuario)) {
       setError("usuario", { type: "custom", message: "Usa 3 a 20 letras, números o guion bajo" });
+      toast.error("El usuario debe tener entre 3 y 20 letras, números o guion bajo");
       return;
     }
 
     if (!validatePassword(passwordValue)) {
       setError("password", { type: "custom", message: "La contraseña debe tener al menos 5 caracteres" });
+      toast.error("La contraseña debe tener al menos 5 caracteres");
       return;
     }
 
@@ -63,11 +67,13 @@ function Register() {
 
       if (duplicates.emailExists) {
         setError("email", { type: "custom", message: "Este correo ya está registrado" });
+        toast.error("Este correo ya está registrado");
         return;
       }
 
       if (duplicates.usernameExists) {
         setError("usuario", { type: "custom", message: "Ese nombre de usuario ya está en uso" });
+        toast.error("Ese nombre de usuario ya está en uso");
         return;
       }
 
@@ -86,15 +92,21 @@ function Register() {
         });
       }
 
+      toast.success("¡Registro exitoso! 🎉 Ahora puedes iniciar sesión");
       navigate("/login");
     } catch (error) {
       console.log(error.message);
       if (error.message?.includes("already in use")) {
         setError("email", { type: "custom", message: "Este correo ya está registrado" });
+        toast.error("Este correo ya está registrado");
       } else {
-        alert(error.message);
+        toast.error(error.message || "Ocurrió un error al registrar el usuario");
       }
     }
+  };
+
+  const onFormError = () => {
+    toast.warn("Revisa los campos marcados en el formulario ⚠️");
   };
 
   return (
@@ -118,7 +130,7 @@ function Register() {
             REGISTRARSE
           </h1>
 
-          <form className="formulario" onSubmit={handleSubmit(handleRegister)}>
+          <form className="formulario" onSubmit={handleSubmit(handleRegister, onFormError)}>
 
             <div className="input-group" data-aos="fade-right" data-aos-delay="200">
               <FaUser className="icon" />

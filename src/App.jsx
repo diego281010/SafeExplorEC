@@ -13,15 +13,33 @@ import AdminZonasPage from './pages/AdminZonasPage.jsx';
 import Quejas from './pages/Quejas.jsx';
 import AccessDenied from './pages/AccessDenied.jsx';
 import ChatBot from './components/chatbot/ChatBot.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './context/AuthContext.jsx';
-import { ThemeProvider } from './context/ThemeContext.jsx';
+import { ThemeProvider, useTheme } from './context/ThemeContext.jsx';
 import ProtectedRoute from './components/routes/ProtectedRoute.jsx';
+
+function AppToastContainer() {
+  const { isDark } = useTheme();
+  return (
+    <ToastContainer
+      position="top-right"
+      autoClose={3500}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      theme={isDark ? "dark" : "light"}
+    />
+  );
+}
 
 function App() {
   return (
     <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
+        <AppToastContainer />
         <Header />
         <main>
           <Routes>
