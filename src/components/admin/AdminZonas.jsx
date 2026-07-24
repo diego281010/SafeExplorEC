@@ -20,6 +20,20 @@ import "./AdminZonas.css";
 const NIVELES_RIESGO = ["bajo", "medio", "alto"];
 const TIPOS_DELITO = ["Robos", "Homicidios", "Asaltos", "Extorsión", "Otros"];
 
+// Geocodifica una dirección de texto a coordenadas [lat, lng] usando
+// Nominatim (OpenStreetMap), la misma API que usa el buscador del mapa.
+// Sin lat/lng las zonas no pueden ubicarse como marcador real en el mapa.
+async function geocodificarDireccion(direccion) {
+  const resp = await fetch(
+    "https://nominatim.openstreetmap.org/search?format=json&q=" +
+      encodeURIComponent(direccion + ", Quito, Ecuador") +
+      "&limit=1&accept-language=es"
+  );
+  const data = await resp.json();
+  if (data.length === 0) return null;
+  return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+}
+
 // HU-008 a HU-017: registrar, editar, eliminar, listar y clasificar
 // zonas de riesgo y zonas turísticas (solo administrador).
 function AdminZonas() {
@@ -54,10 +68,32 @@ function AdminZonas() {
   }, []);
 
   const handleGuardar = async (data) => {
+    // Se geocodifica automáticamente la dirección para poder ubicar la
+    // zona como marcador real en el mapa (sin esto, todas las zonas
+    // caerían en el mismo punto por defecto).
+    let lat = null;
+    let lng = null;
+    try {
+      const coords = await geocodificarDireccion(data.direccion);
+      if (coords) {
+        lat = coords.lat;
+        lng = coords.lng;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (!lat || !lng) {
+      toast.error("No se pudieron obtener coordenadas para esta dirección. Intenta escribirla de forma más específica (ej: incluye el barrio) y vuelve a guardar.");
+      return;
+    }
+
     const payload = {
       nombre: data.nombre,
       tipo: data.tipo,
       direccion: data.direccion,
+      lat,
+      lng,
       descripcion: data.descripcion || "",
       imagenUrl: data.imagenUrl ? data.imagenUrl.trim() : "",
       nivelRiesgo: data.tipo === "riesgo" ? data.nivelRiesgo : null,

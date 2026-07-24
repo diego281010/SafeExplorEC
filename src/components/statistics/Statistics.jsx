@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMask, faGun, faHandcuffs } from '@fortawesome/free-solid-svg-icons';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+import { Link } from 'react-router-dom';
 
 import './Statistics.css';
 
@@ -49,7 +50,7 @@ const Quito = () => {
             </TabPanel>
           </Tabs>
 
-          <a href="#" className="btn quito__more-btn">Más Información</a>
+          <Link to="/estadisticas" className="btn quito__more-btn">Más Información</Link>
           
 
         </div>

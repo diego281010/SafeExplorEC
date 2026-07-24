@@ -22,7 +22,7 @@
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
-  background: var(--bg);
+  background: var(--page-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -69,7 +69,7 @@ h1,
 h2 {
   font-family: var(--heading);
   font-weight: 500;
-  color: var(--text-h);
+  color: var(--text-strong);
 }
 
 h1 {
@@ -99,7 +99,7 @@ code,
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
-  color: var(--text-h);
+  color: var(--text-strong);
 }
 
 code {
@@ -161,7 +161,7 @@ html.dark-theme {
 }
 
 html.dark-theme body {
-  background: var(--bg);
+  background: var(--page-bg);
 }
 
 html.dark-theme .about,

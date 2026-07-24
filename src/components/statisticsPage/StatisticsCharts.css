@@ -1,0 +1,123 @@
+.stats-charts {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.stats-charts__loading {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.stats-charts__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.stats-charts__header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+}
+
+.stats-charts__header p {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--text-muted, #555);
+}
+
+.stats-charts__summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.summary-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border, #ddd);
+  border-radius: 14px;
+  padding: 1.4rem 1rem;
+  text-align: center;
+  box-shadow: 0 6px 16px var(--card-shadow, rgba(0, 0, 0, 0.08));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.summary-card svg {
+  font-size: 1.6rem;
+  color: #3f82fd;
+  margin-bottom: 0.2rem;
+}
+
+.summary-card--riesgo svg {
+  color: #d9534f;
+}
+
+.summary-card--turistica svg {
+  color: #5cb85c;
+}
+
+.summary-card__value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-strong, #222);
+}
+
+.summary-card__label {
+  font-size: 0.85rem;
+  color: var(--text-muted, #555);
+}
+
+.stats-charts__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border, #ddd);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px var(--card-shadow, rgba(0, 0, 0, 0.08));
+}
+
+.chart-card--wide {
+  grid-column: 1 / -1;
+}
+
+.chart-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  color: var(--text-strong, #222);
+  text-align: center;
+}
+
+.chart-card__canvas {
+  position: relative;
+  height: 280px;
+}
+
+.chart-card__canvas--small {
+  height: 240px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.stats-charts__footnote {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-muted, #555);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .stats-charts__summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-charts__grid {
+    grid-template-columns: 1fr;
+  }
+}
