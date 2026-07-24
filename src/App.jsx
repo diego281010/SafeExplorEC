@@ -9,19 +9,38 @@ import Login from './components/login/Login.jsx';
 import Register from './components/register/Register.jsx';
 import Perfil from './pages/Perfil.jsx';
 import Zonas from './pages/Zonas.jsx';
+import Estadisticas from './pages/Estadisticas.jsx';
 import AdminZonasPage from './pages/AdminZonasPage.jsx';
 import Quejas from './pages/Quejas.jsx';
 import AccessDenied from './pages/AccessDenied.jsx';
 import ChatBot from './components/chatbot/ChatBot.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './context/AuthContext.jsx';
-import { ThemeProvider } from './context/ThemeContext.jsx';
+import { ThemeProvider, useTheme } from './context/ThemeContext.jsx';
 import ProtectedRoute from './components/routes/ProtectedRoute.jsx';
+
+function AppToastContainer() {
+  const { isDark } = useTheme();
+  return (
+    <ToastContainer
+      position="top-right"
+      autoClose={3500}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      theme={isDark ? "dark" : "light"}
+    />
+  );
+}
 
 function App() {
   return (
     <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
+        <AppToastContainer />
         <Header />
         <main>
           <Routes>
@@ -34,6 +53,10 @@ function App() {
             <Route path="/acceso-denegado" element={<AccessDenied />} />
             <Route path="/mapas" element={<Mapas />} />
             <Route path="/zonas" element={<Zonas />} />
+            {/* Estadísticas es pública: accesible desde el botón de la
+                sección "Tasas y Estadísticas" del landing sin necesidad
+                de iniciar sesión. */}
+            <Route path="/estadisticas" element={<Estadisticas />} />
 
             {/* Rutas protegidas: cualquier usuario autenticado (admin o turista) */}
             <Route

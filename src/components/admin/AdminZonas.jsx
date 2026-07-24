@@ -1,6 +1,7 @@
 // src/components/admin/AdminZonas.jsx
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import {
   addDoc,
   collection,
@@ -18,6 +19,20 @@ import "./AdminZonas.css";
 
 const NIVELES_RIESGO = ["bajo", "medio", "alto"];
 const TIPOS_DELITO = ["Robos", "Homicidios", "Asaltos", "Extorsión", "Otros"];
+
+// Geocodifica una dirección de texto a coordenadas [lat, lng] usando
+// Nominatim (OpenStreetMap), la misma API que usa el buscador del mapa.
+// Sin lat/lng las zonas no pueden ubicarse como marcador real en el mapa.
+async function geocodificarDireccion(direccion) {
+  const resp = await fetch(
+    "https://nominatim.openstreetmap.org/search?format=json&q=" +
+      encodeURIComponent(direccion + ", Quito, Ecuador") +
+      "&limit=1&accept-language=es"
+  );
+  const data = await resp.json();
+  if (data.length === 0) return null;
+  return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+}
 
 // HU-008 a HU-017: registrar, editar, eliminar, listar y clasificar
 // zonas de riesgo y zonas turísticas (solo administrador).
@@ -53,10 +68,32 @@ function AdminZonas() {
   }, []);
 
   const handleGuardar = async (data) => {
+    // Se geocodifica automáticamente la dirección para poder ubicar la
+    // zona como marcador real en el mapa (sin esto, todas las zonas
+    // caerían en el mismo punto por defecto).
+    let lat = null;
+    let lng = null;
+    try {
+      const coords = await geocodificarDireccion(data.direccion);
+      if (coords) {
+        lat = coords.lat;
+        lng = coords.lng;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (!lat || !lng) {
+      toast.error("No se pudieron obtener coordenadas para esta dirección. Intenta escribirla de forma más específica (ej: incluye el barrio) y vuelve a guardar.");
+      return;
+    }
+
     const payload = {
       nombre: data.nombre,
       tipo: data.tipo,
       direccion: data.direccion,
+      lat,
+      lng,
       descripcion: data.descripcion || "",
       imagenUrl: data.imagenUrl ? data.imagenUrl.trim() : "",
       nivelRiesgo: data.tipo === "riesgo" ? data.nivelRiesgo : null,
@@ -69,18 +106,20 @@ function AdminZonas() {
       if (editId) {
         await updateDoc(doc(dbFirebase, "zonas", editId), payload);
         setEditId(null);
+        toast.success("Zona actualizada correctamente ✅");
       } else {
         await addDoc(collection(dbFirebase, "zonas"), {
           ...payload,
           createdBy: user?.uid || null,
           createdAt: serverTimestamp(),
         });
+        toast.success("Zona registrada correctamente ✅");
       }
       reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
       cargarZonas();
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      toast.error(error.message || "Ocurrió un error al guardar la zona");
     }
   };
 
@@ -102,6 +141,7 @@ function AdminZonas() {
   const handleCancelarEdicion = () => {
     setEditId(null);
     reset({ tipo: "riesgo", nombre: "", direccion: "", descripcion: "", imagenUrl: "", nivelRiesgo: "", tipoDelito: "", cantidadCasos: "" });
+    toast.info("Edición cancelada");
   };
 
   const handleEliminar = async (id) => {
@@ -110,10 +150,15 @@ function AdminZonas() {
     try {
       await deleteDoc(doc(dbFirebase, "zonas", id));
       cargarZonas();
+      toast.success("Zona eliminada correctamente 🗑️");
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      toast.error(error.message || "Ocurrió un error al eliminar la zona");
     }
+  };
+
+  const onFormError = () => {
+    toast.warn("Revisa los campos marcados en el formulario ⚠️");
   };
 
   const zonasFiltradas = zonas.filter((z) =>
@@ -129,7 +174,7 @@ function AdminZonas() {
       </p>
 
       <div className="admin-zonas__layout">
-        <form className="admin-zonas__form" onSubmit={handleSubmit(handleGuardar)}>
+        <form className="admin-zonas__form" onSubmit={handleSubmit(handleGuardar, onFormError)}>
           <h3>{editId ? "Editar zona" : "Registrar nueva zona"}</h3>
 
           {/* ✅ Campo: Tipo de zona */}

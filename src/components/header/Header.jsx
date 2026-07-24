@@ -95,6 +95,8 @@ function Header() {
           <Link to="/mapas" className={pathname === "/mapas" ? "activo" : ""}>Mapa Interactivo</Link>
           {/* Zonas es pública: visible con o sin sesión iniciada */}
           <Link to="/zonas" className={pathname === "/zonas" ? "activo" : ""}>Zonas</Link>
+          {/* Estadísticas es pública: visible con o sin sesión iniciada */}
+          <Link to="/estadisticas" className={pathname === "/estadisticas" ? "activo" : ""}>Estadísticas</Link>
 
           {user && (
             <>

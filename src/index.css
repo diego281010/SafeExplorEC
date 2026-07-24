@@ -22,7 +22,7 @@
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
-  background: var(--bg);
+  background: var(--page-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -161,7 +161,7 @@ html.dark-theme {
 }
 
 html.dark-theme body {
-  background: var(--bg);
+  background: var(--page-bg);
 }
 
 html.dark-theme .about,

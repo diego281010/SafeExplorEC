@@ -24,6 +24,12 @@ export function AuthProvider({ children }) {
       }
 
       setUser(firebaseUser);
+      // Importante: al detectar un nuevo usuario hay que volver a "loading"
+      // hasta que se resuelva su documento de rol en Firestore. Si no se
+      // hace esto, ProtectedRoute puede evaluar el rol como null justo
+      // después del login (mientras el documento aún no llega) y redirigir
+      // por error a /acceso-denegado.
+      setLoading(true);
 
       if (firebaseUser) {
         const userRef = doc(dbFirebase, "Users", firebaseUser.uid);

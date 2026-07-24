@@ -1,9 +1,22 @@
 import './Footer.css';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { authFirebase } from '../../firebase';
 
 const Footer = () => {
     const anioActual = new Date().getFullYear();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await authFirebase.signOut();
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <footer>
@@ -25,6 +38,7 @@ const Footer = () => {
                         <Link to="/nosotros">Acerca de Nosotros</Link>
                         <Link to="/mapas">Mapa Interactivo</Link>
                         <Link to="/zonas">Zonas de Riesgo y Turísticas</Link>
+                        <Link to="/estadisticas">Estadísticas</Link>
                         <Link to="/quejas">Quejas y Sugerencias</Link>
                     </nav>
                 </div>
@@ -32,9 +46,19 @@ const Footer = () => {
                 <div className="footer__col">
                     <h4>Cuenta</h4>
                     <nav className="footer__links">
-                        <Link to="/login">Iniciar sesión</Link>
-                        <Link to="/register">Registrarse</Link>
-                        <Link to="/perfil">Mi Perfil</Link>
+                        {user ? (
+                            <>
+                                <Link to="/perfil">Mi Perfil</Link>
+                                <button type="button" className="footer__logout-link" onClick={handleLogout}>
+                                    Cerrar sesión
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login">Iniciar sesión</Link>
+                                <Link to="/register">Registrarse</Link>
+                            </>
+                        )}
                     </nav>
                 </div>
 
